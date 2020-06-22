@@ -3,7 +3,6 @@ import { promises as fs } from 'fs';
 export interface IProjectInfo {
   id: string;
   name: string;
-  code: string;
 }
 
 const CONTENT_DIR = `${process.cwd()}/content`;
@@ -13,10 +12,13 @@ export function getProjects() {
 }
 
 export async function getProject(id: string) {
-  const code = (await fs.readFile(`${CONTENT_DIR}/${id}/sketch.ino`)).toString('utf-8');
   return {
+    ...JSON.parse(await fs.readFile(`${CONTENT_DIR}/${id}/project.json`, 'utf-8')),
     id,
-    name: id,
-    code,
-  };
+  } as IProjectInfo;
+}
+
+export async function getProjectCode(id: string) {
+  const code = (await fs.readFile(`${CONTENT_DIR}/${id}/sketch.ino`)).toString('utf-8');
+  return code;
 }

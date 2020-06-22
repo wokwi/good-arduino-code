@@ -1,5 +1,5 @@
 import { GetStaticPropsResult, GetStaticPaths } from 'next';
-import { getProject, getProjects } from '../../services/projects';
+import { getProject, getProjects, getProjectCode } from '../../services/projects';
 
 interface SimonProps {
   name: string;
@@ -18,7 +18,7 @@ export default function Simon(props: SimonProps) {
 export async function getStaticProps({ params }): Promise<GetStaticPropsResult<SimonProps>> {
   const project = await getProject(params.id);
   return {
-    props: { name: project.id, data: project.code },
+    props: { name: project.name, data: await getProjectCode(params.id) },
   };
 }
 

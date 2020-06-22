@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { getProjects } from '../services/projects';
+import { getProjects, getProject, IProjectInfo } from '../services/projects';
 import { GetStaticProps } from 'next';
 
 interface IndexProps {
-  projects: string[];
+  projects: IProjectInfo[];
 }
 
 export default function Home(props: IndexProps) {
@@ -24,10 +24,10 @@ export default function Home(props: IndexProps) {
 
         <div className="grid">
           {props.projects.map((project) => (
-            <Link href={`projects/${project}`} key={project}>
+            <Link href={`projects/${project.id}`} key={project.id}>
               <a className="card">
-                <h3>{project} &rarr;</h3>
-                <p>Game Example</p>
+                <h3>{project.name} &rarr;</h3>
+                <p>{project.name}</p>
               </a>
             </Link>
           ))}
@@ -184,6 +184,11 @@ export default function Home(props: IndexProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps<IndexProps> = async () => ({
-  props: { projects: await getProjects() },
-});
+export const getStaticProps: GetStaticProps<IndexProps> = async () => {
+  const projects = await getProjects();
+  return {
+    props: {
+      projects: await Promise.all(projects.map((id) => getProject(id))),
+    },
+  };
+};
