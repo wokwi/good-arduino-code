@@ -1,7 +1,13 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { getProjects } from '../services/projects';
+import { GetStaticProps } from 'next';
 
-export default function Home() {
+interface IndexProps {
+  projects: string[];
+}
+
+export default function Home(props: IndexProps) {
   return (
     <div className="container">
       <Head>
@@ -17,12 +23,14 @@ export default function Home() {
         </p>
 
         <div className="grid">
-          <Link href="simon">
-            <a className="card">
-              <h3>Simon &rarr;</h3>
-              <p>Game Example</p>
-            </a>
-          </Link>
+          {props.projects.map((project) => (
+            <Link href={`projects/${project}`} key={project}>
+              <a className="card">
+                <h3>{project} &rarr;</h3>
+                <p>Game Example</p>
+              </a>
+            </Link>
+          ))}
         </div>
       </main>
 
@@ -39,7 +47,7 @@ export default function Home() {
         }
 
         main {
-          padding: 5rem 0;
+          padding: 2rem 0;
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -175,3 +183,7 @@ export default function Home() {
     </div>
   );
 }
+
+export const getStaticProps: GetStaticProps<IndexProps> = async () => ({
+  props: { projects: await getProjects() },
+});
