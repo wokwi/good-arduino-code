@@ -28,7 +28,7 @@ export default function Home(props: IndexProps) {
 
         <div className="grid">
           {props.projects.map((project) => (
-            <Link href={`projects/${project.id}`} key={project.id}>
+            <Link href="projects/[id]" as={`projects/${project.id}`} key={project.id}>
               <a className="card">
                 <h3>{project.name} &rarr;</h3>
                 <p>{project.name}</p>
