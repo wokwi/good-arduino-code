@@ -2,6 +2,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { getProjects, getProject, IProjectInfo } from '../services/projects';
 import { GetStaticProps } from 'next';
+import { SignupForm } from '../components/signup-form';
+import { GlobalStyles } from '../components/global-styles';
 
 interface IndexProps {
   projects: IProjectInfo[];
@@ -14,6 +16,8 @@ export default function Home(props: IndexProps) {
         <title>Good Arduino Code</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <SignupForm />
 
       <main>
         <h1 className="title">Just Good Arduino Code</h1>
@@ -166,20 +170,7 @@ export default function Home(props: IndexProps) {
           }
         }
       `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
-            Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
+      <GlobalStyles />
     </div>
   );
 }
