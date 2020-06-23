@@ -1,26 +1,42 @@
-import { GetStaticPropsResult, GetStaticPaths } from 'next';
+import { GetStaticProps, GetStaticPaths } from 'next';
 import { getProject, getProjects, getProjectCode } from '../../services/projects';
+import { GlobalStyles } from '../../components/global-styles';
+import Highlight from 'react-highlight';
+import { ParsedUrlQuery } from 'querystring';
 
-interface SimonProps {
+interface ProjectPageParams extends ParsedUrlQuery {
+  id: string;
+}
+
+interface ProjectPageProps {
   name: string;
   data: string;
 }
 
-export default function Simon(props: SimonProps) {
+export default function ProjectPage(props: ProjectPageProps) {
   return (
-    <main>
-      <h1>{props.name}</h1>
-      <pre>{props.data}</pre>
-    </main>
+    <div className="container">
+      <main>
+        <h1>{props.name}</h1>
+        <Highlight>{props.data}</Highlight>
+      </main>
+
+      <GlobalStyles />
+    </div>
   );
 }
 
-export async function getStaticProps({ params }): Promise<GetStaticPropsResult<SimonProps>> {
+export const getStaticProps: GetStaticProps<ProjectPageProps, ProjectPageParams> = async ({
+  params,
+}) => {
+  if (!params) {
+    throw new Error('Missing post id');
+  }
   const project = await getProject(params.id);
   return {
     props: { name: project.name, data: await getProjectCode(params.id) },
   };
-}
+};
 
 export const getStaticPaths: GetStaticPaths = async () => ({
   paths: (await getProjects()).map((path) => `/projects/${path}`),
