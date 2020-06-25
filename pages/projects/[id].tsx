@@ -4,7 +4,12 @@ import { ParsedUrlQuery } from 'querystring';
 import Highlight from 'react-highlight';
 import { GlobalStyles } from '../../components/global-styles';
 import { Header } from '../../components/header';
-import { getProject, getProjectCode, getProjects } from '../../services/projects';
+import {
+  getProject,
+  getProjectCode,
+  getProjects,
+  IProjectSourceFile,
+} from '../../services/projects';
 
 interface ProjectPageParams extends ParsedUrlQuery {
   id: string;
@@ -12,7 +17,7 @@ interface ProjectPageParams extends ParsedUrlQuery {
 
 interface ProjectPageProps {
   name: string;
-  data: string;
+  code: IProjectSourceFile[];
 }
 
 export default function ProjectPage(props: ProjectPageProps) {
@@ -26,7 +31,12 @@ export default function ProjectPage(props: ProjectPageProps) {
       <Header />
       <main>
         <h1>{props.name}</h1>
-        <Highlight>{props.data}</Highlight>
+        {props.code.map((file) => (
+          <section key="file">
+            <h2>{file.name}</h2>
+            <Highlight>{file.code}</Highlight>
+          </section>
+        ))}
       </main>
       <GlobalStyles />
       <style jsx>{`
@@ -46,7 +56,7 @@ export const getStaticProps: GetStaticProps<ProjectPageProps, ProjectPageParams>
   }
   const project = await getProject(params.id);
   return {
-    props: { name: project.name, data: await getProjectCode(params.id) },
+    props: { name: project.name, code: await getProjectCode(params.id) },
   };
 };
 
