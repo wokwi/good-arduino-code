@@ -20,10 +20,13 @@ export default function Home(props: IndexProps) {
       <SignupForm />
 
       <main>
-        <h1 className="title">Just Good Arduino Code</h1>
+        <img src="gac-logo.svg" alt="Good Arduino Code" />
 
-        <p className="description">
-          A curated collection of Arduino coding examples by <a href="https://wokwi.com/">Wokwi</a>
+        <p className="description" style={{ marginTop: 0 }}>
+          <strong>
+            A curated collection of Arduino coding examples by{' '}
+            <a href="https://wokwi.com/">Wokwi</a>
+          </strong>
         </p>
 
         <div className="grid">
