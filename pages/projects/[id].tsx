@@ -2,16 +2,17 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
 import Highlight from 'react-highlight';
+import ReactMarkdown from 'react-markdown/with-html';
 import { GlobalStyles } from '../../components/global-styles';
 import { Header } from '../../components/header';
 import {
   getProject,
   getProjectCode,
   getProjects,
-  IProjectSourceFile,
   getProjectText,
+  IProjectSourceFile,
 } from '../../services/projects';
-import ReactMarkdown from 'react-markdown/with-html';
+import { projectFileURL } from '../../services/urls';
 
 interface ProjectPageParams extends ParsedUrlQuery {
   id: string;
@@ -24,16 +25,13 @@ interface ProjectPageProps {
   text: string;
 }
 
-const transformImageUri = (projectId: string) => (uri: string) => {
-  if (uri.includes('://') || uri.startsWith('/')) {
-    return uri;
-  }
-  return `/api/files/${projectId}/${uri}`;
-};
+const transformImageUri = (projectId: string) => (uri: string) => projectFileURL(projectId, uri);
 
 function fixImageUrls(id: string, markdown: string) {
-  const transformUri = transformImageUri(id);
-  return markdown.replace(/src=["']([^"'>]+)['"]/g, (_, path) => `src="${transformUri(path)}"`);
+  return markdown.replace(
+    /src=["']([^"'>]+)['"]/g,
+    (_, path) => `src="${projectFileURL(id, path)}"`,
+  );
 }
 
 export default function ProjectPage(props: ProjectPageProps) {
@@ -60,6 +58,7 @@ export default function ProjectPage(props: ProjectPageProps) {
             escapeHtml={false}
             source={fixImageUrls(props.id, props.text)}
             transformImageUri={transformImageUri(props.id)}
+            linkTarget="_blank"
           />
         </section>
         {props.code.map((file) => (

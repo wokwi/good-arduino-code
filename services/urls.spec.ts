@@ -6,6 +6,14 @@ describe('projectFileURL', () => {
       '/api/files/simon/images/thumbnail.png',
     );
   });
+
+  it('should return the input URL for absolute URL', async () => {
+    expect(projectFileURL('simon', '/foo/bar')).toEqual('/foo/bar');
+  });
+
+  it('should return the input URL for https:// URL', async () => {
+    expect(projectFileURL('simon', 'https://example.org')).toEqual('https://example.org');
+  });
 });
 
 describe('thumbnailUrl', () => {
