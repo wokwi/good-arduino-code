@@ -42,9 +42,10 @@ export default function ProjectPage(props: ProjectPageProps) {
       <Head>
         <title>{props.name} - Good Arduino Code</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content={`${props.name} - Good Arduino Code`} />
         <meta
           property="og:image"
-          content={`https://goodarduinocode.com/api/social-image/${props.id}.png`}
+          content={`https://goodarduinocode.com/api/social-image/${props.id}.png?v=2`}
         />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
