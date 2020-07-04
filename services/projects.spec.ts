@@ -9,7 +9,7 @@ describe('projects', () => {
 
   describe('getProject', () => {
     it('should return information about the project', async () => {
-      expect(await getProject('simon')).toEqual({
+      expect(await getProject('simon')).toMatchObject({
         id: 'simon',
         name: 'Simon Game',
       });
@@ -21,7 +21,6 @@ describe('projects', () => {
       expect(await getProjectText('simon')).toContain('Simon');
     });
   });
-
   describe('getProjectCode', () => {
     it('should return the list of source code files for the given project', async () => {
       const result = await getProjectCode('simon');

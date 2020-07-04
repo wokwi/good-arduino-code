@@ -1,9 +1,10 @@
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import { getProjects, getProject, IProjectInfo } from '../services/projects';
-import { GetStaticProps } from 'next';
-import { SignupForm } from '../components/signup-form';
 import { GlobalStyles } from '../components/global-styles';
+import { SignupForm } from '../components/signup-form';
+import { getProject, getProjects, IProjectInfo } from '../services/projects';
+import { thumbnailUrl } from '../services/urls';
 
 interface IndexProps {
   projects: IProjectInfo[];
@@ -32,9 +33,16 @@ export default function Home(props: IndexProps) {
         <div className="grid">
           {props.projects.map((project) => (
             <Link href="projects/[id]" as={`projects/${project.id}`} key={project.id}>
-              <a className="card">
-                <h3>{project.name} &rarr;</h3>
-                <p>{project.name}</p>
+              <a
+                className="card"
+                style={{ backgroundImage: project.thumbnail ? `url(${thumbnailUrl(project)}` : '' }}
+              >
+                <h3>
+                  <span>{project.name}</span>
+                </h3>
+                <p>
+                  <span>{project.description}</span>
+                </p>
               </a>
             </Link>
           ))}
@@ -113,15 +121,6 @@ export default function Home(props: IndexProps) {
           font-size: 1.5rem;
         }
 
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-            Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
         .grid {
           display: flex;
           align-items: center;
@@ -142,6 +141,10 @@ export default function Home(props: IndexProps) {
           border: 1px solid #eaeaea;
           border-radius: 10px;
           transition: color 0.15s ease, border-color 0.15s ease;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: 100% 50%;
+          min-height: 200px;
         }
 
         .card:hover,
@@ -156,14 +159,16 @@ export default function Home(props: IndexProps) {
           font-size: 1.5rem;
         }
 
+        .card h3 > span,
+        .card p > span {
+          background-color: white;
+          padding: 0 8px 0 0;
+        }
+
         .card p {
           margin: 0;
           font-size: 1.25rem;
           line-height: 1.5;
-        }
-
-        .logo {
-          height: 1em;
         }
 
         @media (max-width: 600px) {
