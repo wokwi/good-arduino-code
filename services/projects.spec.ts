@@ -1,4 +1,4 @@
-import { getProjectCode, getProject, getProjects } from './projects';
+import { getProject, getProjectCode, getProjects, getProjectText } from './projects';
 
 describe('projects', () => {
   describe('getProjects', () => {
@@ -13,6 +13,12 @@ describe('projects', () => {
         id: 'simon',
         name: 'Simon Game',
       });
+    });
+  });
+
+  describe('getProjectText', () => {
+    it('should return the description of the project', async () => {
+      expect(await getProjectText('simon')).toContain('Simon');
     });
   });
 

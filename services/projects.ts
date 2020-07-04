@@ -45,6 +45,10 @@ function sortByPrimaryThenName(file1: IProjectSourceFile, file2: IProjectSourceF
   return 0;
 }
 
+export async function getProjectText(id: string) {
+  return await fs.readFile(`${projectDir(id)}/README.md`, 'utf-8');
+}
+
 export async function getProjectCode(id: string) {
   const files = await fs.readdir(projectDir(id));
   const result: IProjectSourceFile[] = [];

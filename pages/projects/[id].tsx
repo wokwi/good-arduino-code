@@ -9,15 +9,19 @@ import {
   getProjectCode,
   getProjects,
   IProjectSourceFile,
+  getProjectText,
 } from '../../services/projects';
+import ReactMarkdown from 'react-markdown/with-html';
 
 interface ProjectPageParams extends ParsedUrlQuery {
   id: string;
 }
 
 interface ProjectPageProps {
+  id: string;
   name: string;
   code: IProjectSourceFile[];
+  text: string;
 }
 
 export default function ProjectPage(props: ProjectPageProps) {
@@ -31,8 +35,9 @@ export default function ProjectPage(props: ProjectPageProps) {
       <Header />
       <main>
         <h1>{props.name}</h1>
+        <ReactMarkdown escapeHtml={false} source={props.text} />
         {props.code.map((file) => (
-          <section key="file">
+          <section key={file.name}>
             <h2>{file.name}</h2>
             <Highlight>{file.code}</Highlight>
           </section>
@@ -40,6 +45,10 @@ export default function ProjectPage(props: ProjectPageProps) {
       </main>
       <GlobalStyles />
       <style jsx>{`
+        figure {
+          text-align: center;
+        }
+
         main {
           padding: 8px;
         }
@@ -56,7 +65,12 @@ export const getStaticProps: GetStaticProps<ProjectPageProps, ProjectPageParams>
   }
   const project = await getProject(params.id);
   return {
-    props: { name: project.name, code: await getProjectCode(params.id) },
+    props: {
+      id: params.id,
+      name: project.name,
+      text: await getProjectText(params.id),
+      code: await getProjectCode(params.id),
+    },
   };
 };
 

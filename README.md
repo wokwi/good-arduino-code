@@ -22,8 +22,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 Create a new directory under the `content` directory, and then create the following files inside:
 
-- `sketch.ino` - the Arduino source code of your example
 - `project.json` - This file describes your project. You can see an example [here](content/simon/project.json).
+- `README.md` - the description of the project
+- `sketch.ino` - the Arduino source code of your project
 
 As soon as you create these two files, you should see
 the new example appear in the homepage.
