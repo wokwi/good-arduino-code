@@ -44,8 +44,11 @@ export default function ProjectPage(props: ProjectPageProps) {
         <link rel="icon" href="/favicon.ico" />
         <meta
           property="og:image"
-          content={`https://goodarduinocode.com/api/social-image/{props.id}.png`}
+          content={`https://goodarduinocode.com/api/social-image/${props.id}.png`}
         />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
       </Head>
 
       <Header />
