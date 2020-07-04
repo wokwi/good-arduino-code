@@ -8,8 +8,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     query: { project, path },
   } = req;
   const relativePath = (path as string[]).join('/');
-  const content = await fs.readFile(projectDir(project as string) + '/' + relativePath);
-  res.statusCode = 200;
-  res.setHeader('content-type', 'image/png');
-  res.send(content);
+  const finalPath = projectDir(project as string) + '/' + relativePath;
+  try {
+    const content = await fs.readFile(finalPath);
+    res.statusCode = 200;
+    res.setHeader('content-type', 'image/png');
+    res.send(content);
+  } catch (err) {
+    res.statusCode = 404;
+    res.send('Not found');
+  }
 };
