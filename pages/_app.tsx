@@ -1,5 +1,6 @@
 import { AppPropsType } from 'next/dist/next-server/lib/utils';
 import '../node_modules/highlight.js/styles/arduino-light.css';
+import 'github-markdown-css';
 import { GoogleAnalyticsScript } from '../components/google-analytics';
 import Head from 'next/head';
 

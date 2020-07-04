@@ -19,3 +19,10 @@ played, and the game restarts.
 | 12mm Push button | 4        | Red, Green, Blue, and Yellow |
 | Resistor         | 4        | 220Ω                         |
 | Piezo Buzzer     | 1        |                              |
+
+### Diagram
+
+<figure>
+    <img src="images/diagram.png" alt="diagram" style="max-width: 628px" />
+    <figcaption>Simon connection diagram</figcaption>
+</figure>

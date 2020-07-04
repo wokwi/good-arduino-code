@@ -24,6 +24,18 @@ interface ProjectPageProps {
   text: string;
 }
 
+const transformImageUri = (projectId: string) => (uri: string) => {
+  if (uri.includes('://') || uri.startsWith('/')) {
+    return uri;
+  }
+  return `/api/files/${projectId}/${uri}`;
+};
+
+function fixImageUrls(id: string, markdown: string) {
+  const transformUri = transformImageUri(id);
+  return markdown.replace(/src=["']([^"'>]+)['"]/g, (_, path) => `src="${transformUri(path)}"`);
+}
+
 export default function ProjectPage(props: ProjectPageProps) {
   return (
     <div className="container">
@@ -35,7 +47,13 @@ export default function ProjectPage(props: ProjectPageProps) {
       <Header />
       <main>
         <h1>{props.name}</h1>
-        <ReactMarkdown escapeHtml={false} source={props.text} />
+        <section className="markdown-body">
+          <ReactMarkdown
+            escapeHtml={false}
+            source={fixImageUrls(props.id, props.text)}
+            transformImageUri={transformImageUri(props.id)}
+          />
+        </section>
         {props.code.map((file) => (
           <section key={file.name}>
             <h2>{file.name}</h2>
@@ -45,12 +63,13 @@ export default function ProjectPage(props: ProjectPageProps) {
       </main>
       <GlobalStyles />
       <style jsx>{`
-        figure {
-          text-align: center;
-        }
-
         main {
           padding: 8px;
+        }
+      `}</style>
+      <style jsx global>{`
+        .markdown-body figure {
+          text-align: center;
         }
       `}</style>
     </div>
