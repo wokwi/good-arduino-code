@@ -1,5 +1,6 @@
 {
   "name": "Dice Roller",
   "description": "Roll 2 LED dice with a press of a button",
-  "author": "Uri Shaked"
+  "author": "Uri Shaked",
+  "thumbnail": "images/diagram.png"
 }
