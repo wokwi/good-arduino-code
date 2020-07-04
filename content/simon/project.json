@@ -1,3 +1,6 @@
 {
-  "name": "Simon Game"
+  "name": "Simon Game",
+  "description": "A simple memory game",
+  "author": "Uri Shaked",
+  "thumbnail": "images/diagram.png"
 }

@@ -4,6 +4,9 @@ import { extname } from 'path';
 export interface IProjectInfo {
   id: string;
   name: string;
+  author?: string;
+  description?: string;
+  thumbnail?: string;
 }
 
 export interface IProjectSourceFile {
