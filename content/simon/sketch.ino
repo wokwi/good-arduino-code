@@ -8,7 +8,8 @@
 
 #include "pitches.h"
 
-/* Constants - define pin numbers for leds, buttons and speaker, and also the game tones */
+/* Constants - define pin numbers for LEDs,
+   buttons and speaker, and also the game tones: */
 char ledPins[] = {9, 10, 11, 12};
 char buttonPins[] = {2, 3, 4, 5};
 #define SPEAKER_PIN 8
@@ -31,7 +32,8 @@ void setup() {
     pinMode(buttonPins[i], INPUT_PULLUP);
   }
   pinMode(SPEAKER_PIN, OUTPUT);
-  // The following line primes the random number generator. It assumes pin A0 is floating (disconnected)
+  // The following line primes the random number generator.
+  // It assumes pin A0 is floating (disconnected):
   randomSeed(analogRead(A0));
 }
 
@@ -58,7 +60,8 @@ void playSequence() {
 }
 
 /**
-    Waits until the user pressed one of the buttons, and returns the index of that button
+    Waits until the user pressed one of the buttons,
+    and returns the index of that button
 */
 byte readButton() {
   for (;;) {
@@ -96,7 +99,8 @@ void gameOver() {
 }
 
 /**
-   Get the user input and compare it with the expected sequence. If the user fails, play the game over sequence and restart the game.
+   Get the user input and compare it with the expected sequence.
+   If the user fails, play the game over sequence and restart the game.
 */
 void checkUserSequence() {
   for (int i = 0; i < gameIndex; i++) {
