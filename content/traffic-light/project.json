@@ -1,5 +1,6 @@
 {
   "name": "Traffic Light",
   "description": "Red, Yellow, and... Go!",
-  "author": "Uri Shaked"
+  "author": "Uri Shaked",
+  "unlisted": true
 }

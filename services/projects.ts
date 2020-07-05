@@ -7,6 +7,7 @@ export interface IProjectInfo {
   author?: string;
   description?: string;
   thumbnail?: string;
+  unlisted?: boolean;
 }
 
 export interface IProjectSourceFile {

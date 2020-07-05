@@ -184,10 +184,11 @@ export default function Home(props: IndexProps) {
 }
 
 export const getStaticProps: GetStaticProps<IndexProps> = async () => {
-  const projects = await getProjects();
+  const projectIds = await getProjects();
+  const projects = await Promise.all(projectIds.map((id) => getProject(id)));
   return {
     props: {
-      projects: await Promise.all(projects.map((id) => getProject(id))),
+      projects: projects.filter((project) => !project.unlisted),
     },
   };
 };
