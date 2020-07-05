@@ -21,6 +21,8 @@ interface ProjectPageParams extends ParsedUrlQuery {
 interface ProjectPageProps {
   id: string;
   name: string;
+  author?: string;
+  description?: string;
   code: IProjectSourceFile[];
   text: string;
 }
@@ -35,12 +37,19 @@ function fixImageUrls(id: string, markdown: string) {
 }
 
 export default function ProjectPage(props: ProjectPageProps) {
+  const metaDescription = props.author
+    ? `${props.description} by ${props.author}`
+    : props.description || '';
   return (
     <div className="container">
       <Head>
         <title>{props.name} - Good Arduino Code</title>
         <link rel="icon" href="/favicon.ico" />
         <meta property="og:title" content={`${props.name} - Good Arduino Code`} />
+        <meta
+          property="og:description"
+          content={`Complete source code, schematics, and more. ${metaDescription}`}
+        />
         <meta
           property="og:image"
           content={`https://goodarduinocode.com/api/social-image/${props.id}.png?v=2`}
@@ -109,6 +118,8 @@ export const getStaticProps: GetStaticProps<ProjectPageProps, ProjectPageParams>
     props: {
       id: params.id,
       name: project.name,
+      author: project.author,
+      description: project.description,
       text: await getProjectText(params.id),
       code: await getProjectCode(params.id),
     },
