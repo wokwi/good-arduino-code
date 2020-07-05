@@ -16,6 +16,11 @@ export default function Home(props: IndexProps) {
       <Head>
         <title>Good Arduino Code</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content="Just Good Arduino Code" />
+        <meta
+          property="og:description"
+          content="A curated collection of Arduino coding examples by Wokwi"
+        />
       </Head>
 
       <SignupForm />
