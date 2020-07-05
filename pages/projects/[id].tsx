@@ -51,8 +51,10 @@ export default function ProjectPage(props: ProjectPageProps) {
       </Head>
 
       <Header />
-      <main>
-        <h1>{props.name}</h1>
+      <article>
+        <header>
+          <h1>{props.name}</h1>
+        </header>
         <section className="markdown-body">
           <ReactMarkdown
             escapeHtml={false}
@@ -67,16 +69,29 @@ export default function ProjectPage(props: ProjectPageProps) {
             <Highlight>{file.code}</Highlight>
           </section>
         ))}
-      </main>
+      </article>
       <GlobalStyles />
       <style jsx>{`
-        main {
+        article {
           padding: 8px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        header,
+        section {
+          width: 700px;
+          max-width: 100vw;
         }
       `}</style>
       <style jsx global>{`
         .markdown-body figure {
           text-align: center;
+        }
+
+        .markdown-body img {
+          max-width: 100vw;
         }
       `}</style>
     </div>

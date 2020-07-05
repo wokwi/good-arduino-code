@@ -7,7 +7,7 @@ of random numbers, followed by the result.
 The LEDs are connected to the Arduino pins
 as follows:
 
-<img src="images/led-pins.png" alt="LED pin connections" style="max-width: 367px" />
+<img src="images/led-pins.png" alt="LED pin connections" style="width: 367px" />
 
 ### Hardware
 
@@ -21,6 +21,6 @@ as follows:
 ### Diagram
 
 <figure>
-    <img src="images/diagram.png" alt="diagram" style="max-width: 445px" />
+    <img src="images/diagram.png" alt="diagram" style="width: 445px" />
     <figcaption>Simon connection diagram</figcaption>
 </figure>

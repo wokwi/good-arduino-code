@@ -23,6 +23,6 @@ played, and the game restarts.
 ### Diagram
 
 <figure>
-    <img src="images/diagram.png" alt="diagram" style="max-width: 628px" />
+    <img src="images/diagram.png" alt="diagram" style="width: 628px" />
     <figcaption>Simon connection diagram</figcaption>
 </figure>
