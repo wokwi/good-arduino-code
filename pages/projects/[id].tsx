@@ -90,8 +90,17 @@ export default function ProjectPage(props: ProjectPageProps) {
 
         header,
         section {
-          width: 700px;
+          width: 716px;
           max-width: 100vw;
+        }
+
+        .markdown-body {
+          padding: 0 8px;
+        }
+
+        h1,
+        h2 {
+          padding: 0 8px;
         }
       `}</style>
       <style jsx global>{`
@@ -100,7 +109,7 @@ export default function ProjectPage(props: ProjectPageProps) {
         }
 
         .markdown-body img {
-          max-width: 100vw;
+          max-width: 100%;
         }
       `}</style>
     </div>

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SignupForm } from './signup-form';
 
 export function Header() {
   return (
