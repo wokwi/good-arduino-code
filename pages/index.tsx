@@ -25,6 +25,8 @@ export default function Home(props: IndexProps) {
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@WokwiMakes" />
       </Head>
 
       <SignupForm />
