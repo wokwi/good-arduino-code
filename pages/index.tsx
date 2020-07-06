@@ -21,6 +21,10 @@ export default function Home(props: IndexProps) {
           property="og:description"
           content="A curated collection of Arduino coding examples by Wokwi"
         />
+        <meta property="og:image" content="https://goodarduinocode.com/images/social-cover.jpg" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
       </Head>
 
       <SignupForm />
