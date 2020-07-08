@@ -24,3 +24,7 @@ as follows:
     <img src="images/diagram.png" alt="diagram" style="width: 445px" />
     <figcaption>Simon connection diagram</figcaption>
 </figure>
+
+### Video Tutorial
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HaFf48j5sMc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
