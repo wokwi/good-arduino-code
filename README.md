@@ -32,3 +32,8 @@ the new example appear in the homepage.
 Note: the name of the directory will become part of the URL of your example. For instance, if you call the
 directory `smart-bin`, the project will be published
 as `https://goodarduinocode.com/projects/smart-bin`.
+
+## License
+
+The code is released under the terms of [The MIT License](LICENSE). The code examples and related assets are covered by [CC-BY-SA](https://creativecommons.org/licenses/by-sa/4.0/),
+with the following exception: you may use portions of code from the examples in your Arduino project without sharing your entire source code.
