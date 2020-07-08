@@ -74,9 +74,10 @@ export default function ProjectPage(props: ProjectPageProps) {
             linkTarget="_blank"
           />
         </section>
+        <h2>Source code</h2>
         {props.code.map((file) => (
           <section key={file.name}>
-            <h2>{file.name}</h2>
+            <h3>{file.name}</h3>
             <Highlight>{file.code}</Highlight>
           </section>
         ))}
@@ -91,17 +92,18 @@ export default function ProjectPage(props: ProjectPageProps) {
         }
 
         header,
-        section {
+        section,
+        h1,
+        h2,
+        h3 {
           width: 716px;
           max-width: 100vw;
         }
 
-        .markdown-body {
-          padding: 0 8px;
-        }
-
+        .markdown-body,
         h1,
-        h2 {
+        h2,
+        h3 {
           padding: 0 8px;
         }
       `}</style>
