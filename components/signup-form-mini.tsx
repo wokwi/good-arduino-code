@@ -1,4 +1,5 @@
 import { EmailIcon } from './email-icon';
+import { reportEvent } from '../services/analytics';
 
 const options = {
   settings: {
@@ -55,7 +56,7 @@ export function SignupFormMini() {
         data-format="inline"
         data-version="5"
         data-options={JSON.stringify(options)}
-        min-width="400 500 600 700 800"
+        onSubmit={() => reportEvent({ action: 'subscribe', category: 'form', label: 'header' })}
       >
         <div data-style="clean">
           <ul

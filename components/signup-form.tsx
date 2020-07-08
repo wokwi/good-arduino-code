@@ -1,3 +1,5 @@
+import { reportEvent } from '../services/analytics';
+
 const options = {
   settings: {
     after_subscribe: {
@@ -53,6 +55,7 @@ export function SignupForm() {
         data-format="inline"
         data-version="5"
         data-options={JSON.stringify(options)}
+        onSubmit={() => reportEvent({ action: 'subscribe', category: 'form', label: 'homepage' })}
         min-width="400 500 600 700 800"
       >
         <div data-style="clean">
