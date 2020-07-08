@@ -52,7 +52,7 @@ export default function ProjectPage(props: ProjectPageProps) {
         />
         <meta
           property="og:image"
-          content={`https://goodarduinocode.com/api/social-image/${props.id}.png?v=2`}
+          content={`https://goodarduinocode.com/api/social-image/${props.id}.png?v=3`}
         />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />

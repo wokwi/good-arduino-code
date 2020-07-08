@@ -41,10 +41,10 @@ async function generateHtml(project: IProjectInfo) {
 
         #container {
           position: absolute;
-          top: 16px;
-          left: 16px;
-          right: 16px;
-          bottom: 16px;
+          top: 32px;
+          left: 32px;
+          right: 32px;
+          bottom: 32px;
           background: white;
           padding: 32px;
           box-shadow: 16px 16px #00ffc3;
@@ -65,7 +65,7 @@ async function generateHtml(project: IProjectInfo) {
           position: absolute;
           width: 200px;
           top: 0;
-          left: 920px;
+          left: 910px;
         }
       </style>
     </head>
