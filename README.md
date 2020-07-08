@@ -2,7 +2,10 @@
 
 ## Getting Started
 
-First, clone the repository:
+If you just want to get the code running as quickly as possible,
+without any setup on your computer, [open the project in CodeSandbox](https://githubbox.com/wokwi/good-arduino-code).
+
+If you prefer to set up a local development environment, clone the repository:
 
 ```bash
 git clone https://github.com/wokwi/good-arduino-code
