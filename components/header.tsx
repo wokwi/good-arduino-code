@@ -1,18 +1,24 @@
 import Link from 'next/link';
 import { SignupFormMini } from './signup-form-mini';
+import { SignupFormMobile } from './signup-form-mobile';
 
 export function Header() {
   return (
-    <header>
-      <div className="content">
-        <Link href="/">
-          <a>
-            <img src="/gac-logo.svg" height="80" alt="Good Arduino Code" />
-          </a>
-        </Link>
-        <div className="signup">
-          <SignupFormMini />
+    <>
+      <header>
+        <div className="content">
+          <Link href="/">
+            <a>
+              <img src="/gac-logo.svg" height="80" alt="Good Arduino Code" />
+            </a>
+          </Link>
+          <div className="signup">
+            <SignupFormMini />
+          </div>
         </div>
+      </header>
+      <div className="signup-mobile">
+        <SignupFormMobile />
       </div>
       <style jsx>{`
         header {
@@ -39,12 +45,20 @@ export function Header() {
           flex: 1;
         }
 
+        .signup-mobile {
+          display: none;
+        }
+
         @media (max-width: 700px) {
           .signup {
             display: none;
           }
+
+          .signup-mobile {
+            display: block;
+          }
         }
       `}</style>
-    </header>
+    </>
   );
 }
