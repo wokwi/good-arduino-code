@@ -112,7 +112,8 @@ export default function ProjectPage(props: ProjectPageProps) {
           text-align: center;
         }
 
-        .markdown-body img {
+        .markdown-body img,
+        .markdown-body iframe {
           max-width: 100%;
         }
       `}</style>
