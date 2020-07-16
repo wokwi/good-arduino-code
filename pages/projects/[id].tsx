@@ -1,10 +1,12 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
+import React from 'react';
 import Highlight from 'react-highlight';
 import ReactMarkdown from 'react-markdown/with-html';
 import { GlobalStyles } from '../../components/global-styles';
 import { Header } from '../../components/header';
+
 import {
   getProject,
   getProjectCode,
@@ -13,6 +15,10 @@ import {
   IProjectSourceFile,
 } from '../../services/projects';
 import { projectFileURL } from '../../services/urls';
+import { HeadingRenderer } from '../../utils/heading-renderer';
+import { extractHeadings } from '../../utils/markdown-utils';
+import { headingToId } from '../../utils/heading-to-id';
+import { ISideNavLink, SideNav } from '../../components/side-nav';
 
 interface ProjectPageParams extends ParsedUrlQuery {
   id: string;
@@ -29,11 +35,28 @@ interface ProjectPageProps {
 
 const transformImageUri = (projectId: string) => (uri: string) => projectFileURL(projectId, uri);
 
+function fileNameToId(filename: string) {
+  return `source-${filename.toLowerCase().replace(/\W/g, '_')}`;
+}
+
 function fixImageUrls(id: string, markdown: string) {
   return markdown.replace(
     /src=["']([^"'>]+)['"]/g,
     (_, path) => `src="${projectFileURL(id, path)}"`,
   );
+}
+
+function getSectionLinks(props: ProjectPageProps) {
+  return [
+    { id: 'start', name: props.name, indent: 0 },
+    ...extractHeadings(props.text).map(({ text, level }) => ({
+      id: headingToId(text),
+      name: text,
+      indent: level - 2,
+    })),
+    { id: 'source-code', name: 'Source code', indent: 0 },
+    ...props.code.map(({ name }) => ({ id: fileNameToId(name), name, indent: 1 })),
+  ] as ISideNavLink[];
 }
 
 export default function ProjectPage(props: ProjectPageProps) {
@@ -64,19 +87,25 @@ export default function ProjectPage(props: ProjectPageProps) {
       <Header />
       <article>
         <header>
-          <h1>{props.name}</h1>
+          <h1 id="start">{props.name}</h1>
         </header>
+        <div className="nav-container">
+          <nav>
+            <SideNav links={getSectionLinks(props)} />
+          </nav>
+        </div>
         <section className="markdown-body">
           <ReactMarkdown
             escapeHtml={false}
             source={fixImageUrls(props.id, props.text)}
             transformImageUri={transformImageUri(props.id)}
+            renderers={{ heading: HeadingRenderer }}
             linkTarget="_blank"
           />
         </section>
-        <h2>Source code</h2>
+        <h2 id="source-code">Source code</h2>
         {props.code.map((file) => (
-          <section key={file.name}>
+          <section id={fileNameToId(file.name)} key={file.name}>
             <h3>{file.name}</h3>
             <Highlight>{file.code}</Highlight>
           </section>
@@ -93,11 +122,21 @@ export default function ProjectPage(props: ProjectPageProps) {
 
         header,
         section,
+        .nav-container,
         h1,
         h2,
         h3 {
           width: 716px;
           max-width: 100vw;
+        }
+
+        .nav-container {
+          position: relative;
+          padding-left: 760px;
+        }
+
+        nav {
+          position: fixed;
         }
 
         .markdown-body,
