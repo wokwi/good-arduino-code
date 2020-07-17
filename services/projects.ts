@@ -56,7 +56,7 @@ export async function getProjectText(id: string) {
 export async function getProjectCode(id: string) {
   const files = await fs.readdir(projectDir(id));
   const result: IProjectSourceFile[] = [];
-  const codeExtensions = ['.ino', '.c', '.h', 'cpp', '.cc'];
+  const codeExtensions = ['.ino', '.c', '.h', '.cpp', '.cc'];
   for (const file of files) {
     const extension = extname(file.toLowerCase());
     if (codeExtensions.includes(extension)) {
