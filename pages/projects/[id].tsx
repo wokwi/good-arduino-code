@@ -100,7 +100,7 @@ export default function ProjectPage(props: ProjectPageProps) {
             source={fixImageUrls(props.id, props.text)}
             transformImageUri={transformImageUri(props.id)}
             renderers={{ heading: HeadingRenderer }}
-            linkTarget="_blank"
+            linkTarget={(url) => (url.startsWith('#') ? '' : '_blank')}
           />
         </section>
         <h2 id="source-code">Source code</h2>
