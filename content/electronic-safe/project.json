@@ -1,0 +1,7 @@
+{
+  "name": "Electronic Safe",
+  "description": "Arduino-powered Digital Safe Box",
+  "author": "Uri Shaked",
+  "thumbnail": "images/thumbnail.png",
+  "libraries": ["EEPROM", "Keypad", "LiquidCrystal", "Servo"]
+}
