@@ -110,7 +110,18 @@ bool setNewCode() {
   }
 }
 
-void showUnlockedScreen() {
+void showUnlockMessage() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.write(ICON_UNLOCKED_CHAR);
+  lcd.setCursor(4, 0);
+  lcd.print("Unlocked!");
+  lcd.setCursor(15, 0);
+  lcd.write(ICON_UNLOCKED_CHAR);
+  delay(1000);
+}
+
+void safeUnlockedLogic() {
   lcd.clear();
 
   lcd.setCursor(0, 0);
@@ -153,18 +164,7 @@ void showUnlockedScreen() {
   }
 }
 
-void showUnlockMessage() {
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.write(ICON_UNLOCKED_CHAR);
-  lcd.setCursor(4, 0);
-  lcd.print("Unlocked!");
-  lcd.setCursor(15, 0);
-  lcd.write(ICON_UNLOCKED_CHAR);
-  delay(1000);
-}
-
-void showLockedScreen() {
+void safeLockedLogic() {
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.write(ICON_LOCKED_CHAR);
@@ -205,8 +205,8 @@ void setup() {
 
 void loop() {
   if (safeState.locked()) {
-    showLockedScreen();
+    safeLockedLogic();
   } else {
-    showUnlockedScreen();
+    safeUnlockedLogic();
   }
 }
