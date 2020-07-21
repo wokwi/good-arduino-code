@@ -2,6 +2,7 @@ export function EmailIcon() {
   return (
     <svg
       width="18px"
+      height="23px"
       viewBox="0 0 20 16"
       version="1.1"
       stroke="none"
