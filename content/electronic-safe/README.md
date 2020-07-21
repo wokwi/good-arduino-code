@@ -44,11 +44,12 @@ The code is divided into three modules:
 | 8           | LCD    | D6         |
 | 7           | LCD    | D7         |
 | 6           | Servo  | Signal     |
-| 5           | Keypad | R4         |
-| 4           | Keypad | R3         |
-| 3           | Keypad | R2         |
-| 2           | Keypad | R1         |
-| A3          | Keypad | C4         |
-| A2          | Keypad | C3         |
-| A1          | Keypad | C2         |
-| A0          | Keypad | C1         |
+| 5           | Keypad | R1         |
+| 4           | Keypad | R2         |
+| 3           | Keypad | R3         |
+| 2           | Keypad | R4         |
+| A3          | Keypad | C1         |
+| A2          | Keypad | C2         |
+| A1          | Keypad | C3         |
+| A0          | Keypad | C4         |
+
