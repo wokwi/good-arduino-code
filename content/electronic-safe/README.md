@@ -26,6 +26,13 @@ The code is divided into three modules:
 | LCD1602         | 1        |                                |
 | Servo motor     | 1        | You can use a solenoid instead |
 
+### Diagram
+
+<figure>
+    <img src="images/diagram.png" alt="diagram" style="width: 628px" />
+    <figcaption>Arduino Safe Connection Diagram</figcaption>
+</figure>
+
 ### Pin Connections
 
 | Arduino Pin | Device | Device Pin |
