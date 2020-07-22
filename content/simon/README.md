@@ -26,3 +26,19 @@ played, and the game restarts.
     <img src="images/diagram.png" alt="diagram" style="width: 628px" />
     <figcaption>Simon connection diagram</figcaption>
 </figure>
+
+### Pin Connections
+
+| Arduino Pin | Device        |
+| ----------- | ------------- |
+| 12          | Red LED       |
+| 11          | Green LED     |
+| 10          | Blue LED      |
+| 9           | Yellow LED    |
+| 8           | Buzzer        |
+| 5           | Red Button    |
+| 4           | Green Button  |
+| 3           | Blue Button   |
+| 2           | Yellow Button |
+
+- The LEDs are connected through a 220Ω resistor each.
