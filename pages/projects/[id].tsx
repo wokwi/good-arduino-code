@@ -29,7 +29,7 @@ interface ProjectPageProps {
   name: string;
   author?: string;
   description?: string;
-  simulation?: string;
+  simulation: string | null;
   code: IProjectSourceFile[];
   text: string;
 }
@@ -189,7 +189,7 @@ export const getStaticProps: GetStaticProps<ProjectPageProps, ProjectPageParams>
       name: project.name,
       author: project.author,
       description: project.description,
-      simulation: project.simulation,
+      simulation: project.simulation ?? null,
       text: await getProjectText(params.id),
       code: await getProjectCode(params.id),
     },
