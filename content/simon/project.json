@@ -2,5 +2,6 @@
   "name": "Simon Game",
   "description": "A simple memory game",
   "author": "Uri Shaked",
-  "thumbnail": "images/diagram.png"
+  "thumbnail": "images/diagram.png",
+  "simulation": "https://wokwi.com/playground/simon-game?comments=0"
 }
