@@ -3,5 +3,6 @@
   "description": "Arduino-powered Digital Safe Box",
   "author": "Uri Shaked",
   "thumbnail": "images/thumbnail.png",
-  "libraries": ["EEPROM", "Keypad", "LiquidCrystal", "Servo"]
+  "libraries": ["EEPROM", "Keypad", "LiquidCrystal", "Servo"],
+  "simulation": "https://wokwi.com/playground/electronic-safe"
 }

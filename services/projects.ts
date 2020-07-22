@@ -7,6 +7,7 @@ export interface IProjectInfo {
   author?: string;
   description?: string;
   thumbnail?: string;
+  simulation?: string;
   unlisted?: boolean;
 }
 

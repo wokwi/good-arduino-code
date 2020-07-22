@@ -29,6 +29,7 @@ interface ProjectPageProps {
   name: string;
   author?: string;
   description?: string;
+  simulation?: string;
   code: IProjectSourceFile[];
   text: string;
 }
@@ -56,6 +57,7 @@ function getSectionLinks(props: ProjectPageProps) {
     })),
     { id: 'source-code', name: 'Source code', indent: 0 },
     ...props.code.map(({ name }) => ({ id: fileNameToId(name), name, indent: 1 })),
+    ...(props.simulation ? [{ id: 'simulation', name: 'Simulation', indent: 0 }] : []),
   ] as ISideNavLink[];
 }
 
@@ -110,6 +112,14 @@ export default function ProjectPage(props: ProjectPageProps) {
             <Highlight>{file.code}</Highlight>
           </section>
         ))}
+        {props.simulation && (
+          <>
+            <h2 id="simulation">Simulation</h2>
+            <section>
+              <iframe src={props.simulation}></iframe>
+            </section>
+          </>
+        )}
       </article>
       <GlobalStyles />
       <style jsx>{`
@@ -145,6 +155,12 @@ export default function ProjectPage(props: ProjectPageProps) {
         h3 {
           padding: 0 8px;
         }
+
+        iframe {
+          border: none;
+          width: 100%;
+          height: 800px;
+        }
       `}</style>
       <style jsx global>{`
         .markdown-body figure {
@@ -173,6 +189,7 @@ export const getStaticProps: GetStaticProps<ProjectPageProps, ProjectPageParams>
       name: project.name,
       author: project.author,
       description: project.description,
+      simulation: project.simulation,
       text: await getProjectText(params.id),
       code: await getProjectCode(params.id),
     },
