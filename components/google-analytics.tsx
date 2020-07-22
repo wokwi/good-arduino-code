@@ -1,4 +1,10 @@
+import { isProduction } from '../services/environment';
+
 export function GoogleAnalyticsScript() {
+  if (!isProduction) {
+    return null;
+  }
+
   return (
     <>
       <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150413053-4" />

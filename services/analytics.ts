@@ -1,6 +1,8 @@
+import { isProduction } from './environment';
+
 declare function gtag(cmd: string, action: string, args: any): void;
 
-const debug = process.env.NODE_ENV !== 'production';
+const debug = !isProduction;
 
 export interface IGAEventParams {
   action: string;
