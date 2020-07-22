@@ -22,7 +22,7 @@ as follows:
 
 <figure>
     <img src="images/diagram.png" alt="diagram" style="width: 445px" />
-    <figcaption>Simon connection diagram</figcaption>
+    <figcaption>Dice roller connection diagram</figcaption>
 </figure>
 
 ### Video Tutorial
