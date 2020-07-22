@@ -23,8 +23,8 @@ LiquidCrystal lcd(12, 11, 10, 9, 8, 7);
 /* Keypad setup */
 const byte KEYPAD_ROWS = 4;
 const byte KEYPAD_COLS = 4;
-byte rowPins[KEYPAD_ROWS] = {2, 3, 4, 5};
-byte colPins[KEYPAD_COLS] = {A0, A1, A2, A3};
+byte rowPins[KEYPAD_ROWS] = {5, 4, 3, 2};
+byte colPins[KEYPAD_COLS] = {A3, A2, A1, A0};
 char keys[KEYPAD_ROWS][KEYPAD_COLS] = {
   {'1', '2', '3', 'A'},
   {'4', '5', '6', 'B'},
