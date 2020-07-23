@@ -1,3 +1,4 @@
+import { mdiDownload, mdiGithub } from '@mdi/js';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
@@ -6,9 +7,8 @@ import Highlight from 'react-highlight';
 import ReactMarkdown from 'react-markdown/with-html';
 import { GlobalStyles } from '../../components/global-styles';
 import { Header } from '../../components/header';
-import Icon from '@mdi/react';
-import { mdiDownload, mdiGithub } from '@mdi/js';
-
+import { LinkIconButton } from '../../components/link-icon-button';
+import { ISideNavLink, SideNav } from '../../components/side-nav';
 import {
   getProject,
   getProjectCode,
@@ -18,9 +18,8 @@ import {
 } from '../../services/projects';
 import { projectFileURL } from '../../services/urls';
 import { HeadingRenderer } from '../../utils/heading-renderer';
-import { extractHeadings } from '../../utils/markdown-utils';
 import { headingToId } from '../../utils/heading-to-id';
-import { ISideNavLink, SideNav } from '../../components/side-nav';
+import { extractHeadings } from '../../utils/markdown-utils';
 
 interface ProjectPageParams extends ParsedUrlQuery {
   id: string;
@@ -109,19 +108,16 @@ export default function ProjectPage(props: ProjectPageProps) {
         </section>
         <h2 id="source-code">Source code</h2>
         <section>
-          <a href={`/api/download-project/${props.id}.zip`} className="icon-button">
-            <Icon path={mdiDownload} size={1} />
-            <span>Download project</span>
-          </a>
-          <a
+          <LinkIconButton href={`/api/download-project/${props.id}.zip`} icon={mdiDownload}>
+            Download project
+          </LinkIconButton>
+          <LinkIconButton
+            icon={mdiGithub}
             href={`https://github.com/wokwi/good-arduino-code/tree/master/content/${props.id}`}
             target="_blank"
-            rel="noreferrer"
-            className="icon-button"
           >
-            <Icon path={mdiGithub} size={1} />
-            <span>View on GitHub</span>
-          </a>
+            View on GitHub
+          </LinkIconButton>
         </section>
         {props.code.map((file) => (
           <section id={fileNameToId(file.name)} key={file.name}>
@@ -171,23 +167,6 @@ export default function ProjectPage(props: ProjectPageProps) {
         h2,
         h3 {
           padding: 0 8px;
-        }
-
-        .icon-button {
-          display: inline-flex;
-          text-decoration: none;
-          border: solid #ccc 1px;
-          margin-left: 8px;
-          padding: 4px;
-          border-radius: 4px;
-        }
-
-        .icon-button:hover {
-          background: #eee;
-        }
-
-        .icon-button > span {
-          padding: 0 4px;
         }
 
         iframe {
