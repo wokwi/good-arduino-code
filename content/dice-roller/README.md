@@ -25,6 +25,28 @@ as follows:
     <figcaption>Dice roller connection diagram</figcaption>
 </figure>
 
+### Pin Connections
+
+| Arduino Pin | Part      | Location     |
+| ----------- | --------- | ------------ |
+| 2           | Red LED   | Top-left     |
+| 3           | Red LED   | Top-right    |
+| 4           | Red LED   | Mid-left     |
+| 5           | Red LED   | Center       |
+| 6           | Red LED   | Mid-right    |
+| 7           | Red LED   | Bottom-left  |
+| 8           | Red LED   | Bottom right |
+| 9           | Green LED | Top-left     |
+| 10          | Green LED | Top-right    |
+| 11          | Green LED | Mid-left     |
+| 12          | Green LED | Center       |
+| A3          | Green LED | Mid-right    |
+| A4          | Green LED | Bottom-left  |
+| A5          | Green LED | Bottom right |
+| A0          | Button    |              |
+
+- The LEDs are connected through a 220Ω resistor each.
+
 ### Video Tutorial
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/HaFf48j5sMc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
