@@ -5,11 +5,18 @@ export interface LinkIconButtonProps {
   icon: string;
   children: React.ReactNode;
   target?: string;
+  onClick?: () => void;
 }
 
-export function LinkIconButton({ href, target, icon, children }: LinkIconButtonProps) {
+export function LinkIconButton({ href, target, onClick, icon, children }: LinkIconButtonProps) {
   return (
-    <a href={href} className="icon-button" target={target} rel={target && 'noreferrer'}>
+    <a
+      href={href}
+      className="icon-button"
+      target={target}
+      rel={target && 'noreferrer'}
+      onClick={onClick}
+    >
       <Icon path={icon} size={1} />
       <span>{children}</span>
 

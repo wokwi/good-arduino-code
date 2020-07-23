@@ -20,6 +20,7 @@ import { projectFileURL } from '../../services/urls';
 import { HeadingRenderer } from '../../utils/heading-renderer';
 import { headingToId } from '../../utils/heading-to-id';
 import { extractHeadings } from '../../utils/markdown-utils';
+import { reportEvent } from '../../services/analytics';
 
 interface ProjectPageParams extends ParsedUrlQuery {
   id: string;
@@ -108,12 +109,21 @@ export default function ProjectPage(props: ProjectPageProps) {
         </section>
         <h2 id="source-code">Source code</h2>
         <section>
-          <LinkIconButton href={`/api/download-project/${props.id}.zip`} icon={mdiDownload}>
+          <LinkIconButton
+            href={`/api/download-project/${props.id}.zip`}
+            icon={mdiDownload}
+            onClick={() =>
+              reportEvent({ action: 'download', category: 'project', label: props.id })
+            }
+          >
             Download project
           </LinkIconButton>
           <LinkIconButton
             icon={mdiGithub}
             href={`https://github.com/wokwi/good-arduino-code/tree/master/content/${props.id}`}
+            onClick={() =>
+              reportEvent({ action: 'view-on-github', category: 'project', label: props.id })
+            }
             target="_blank"
           >
             View on GitHub
