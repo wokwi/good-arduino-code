@@ -1,4 +1,3 @@
-import { EmailIcon } from './email-icon';
 import { reportEvent } from '../services/analytics';
 
 const options = {

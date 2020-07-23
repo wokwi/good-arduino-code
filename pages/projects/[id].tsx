@@ -116,6 +116,7 @@ export default function ProjectPage(props: ProjectPageProps) {
           <a
             href={`https://github.com/wokwi/good-arduino-code/tree/master/content/${props.id}`}
             target="_blank"
+            rel="noreferrer"
             className="icon-button"
           >
             <Icon path={mdiGithub} size={1} />

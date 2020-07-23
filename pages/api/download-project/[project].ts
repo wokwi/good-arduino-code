@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getProject, getProjectCode } from '../../../services/projects';
 import { promisify } from 'util';
 import ZipStream from 'zip-stream';
+import { getProjectCode } from '../../../services/projects';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const {

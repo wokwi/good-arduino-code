@@ -1,4 +1,4 @@
-import parse, { Parser } from 'remark-parse';
+import parse from 'remark-parse';
 import unified from 'unified';
 
 interface ParserNode {

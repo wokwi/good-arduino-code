@@ -3,5 +3,5 @@ export function headingToId(text: string) {
     .toLowerCase()
     .replace(/[^\w\- ]+/g, '')
     .replace(/\s/g, '-')
-    .replace(/\-+$/, '');
+    .replace(/-+$/, '');
 }
