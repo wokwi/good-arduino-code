@@ -6,6 +6,8 @@ import Highlight from 'react-highlight';
 import ReactMarkdown from 'react-markdown/with-html';
 import { GlobalStyles } from '../../components/global-styles';
 import { Header } from '../../components/header';
+import Icon from '@mdi/react';
+import { mdiDownload, mdiGithub } from '@mdi/js';
 
 import {
   getProject,
@@ -106,6 +108,20 @@ export default function ProjectPage(props: ProjectPageProps) {
           />
         </section>
         <h2 id="source-code">Source code</h2>
+        <section>
+          <a href={`/api/download-project/${props.id}.zip`} className="icon-button">
+            <Icon path={mdiDownload} size={1} />
+            <span>Download project</span>
+          </a>
+          <a
+            href={`https://github.com/wokwi/good-arduino-code/tree/master/content/${props.id}`}
+            target="_blank"
+            className="icon-button"
+          >
+            <Icon path={mdiGithub} size={1} />
+            <span>View on GitHub</span>
+          </a>
+        </section>
         {props.code.map((file) => (
           <section id={fileNameToId(file.name)} key={file.name}>
             <h3>{file.name}</h3>
@@ -154,6 +170,23 @@ export default function ProjectPage(props: ProjectPageProps) {
         h2,
         h3 {
           padding: 0 8px;
+        }
+
+        .icon-button {
+          display: inline-flex;
+          text-decoration: none;
+          border: solid #ccc 1px;
+          margin-left: 8px;
+          padding: 4px;
+          border-radius: 4px;
+        }
+
+        .icon-button:hover {
+          background: #eee;
+        }
+
+        .icon-button > span {
+          padding: 0 4px;
         }
 
         iframe {
