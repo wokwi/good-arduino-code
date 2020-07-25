@@ -4,5 +4,6 @@
   "author": "Uri Shaked",
   "thumbnail": "",
   "libraries": ["Button", "RTCLib", "SevSeg"],
+  "simulation": "https://wokwi.com/playground/alarm-clock?comments=0",
   "unlisted": true
 }
