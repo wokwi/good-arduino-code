@@ -1,0 +1,8 @@
+{
+  "name": "Alarm Clock",
+  "description": "",
+  "author": "Uri Shaked",
+  "thumbnail": "",
+  "libraries": ["Button", "RTCLib", "SevSeg"],
+  "unlisted": true
+}
