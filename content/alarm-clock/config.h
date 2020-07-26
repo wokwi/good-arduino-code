@@ -16,6 +16,11 @@
 #define USE_RTC 1
 
 /**
+   Your 7-Segment display type: COMMON_ANODE or COMMON_CATHODE
+*/
+#define DISPLAY_TYPE COMMON_ANODE
+
+/**
    For how long should we show the alarm status (on/off)?
 */
 const int ALARM_STATUS_DISPLAY_TIME = 1000; /* ms */

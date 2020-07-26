@@ -157,7 +157,7 @@ void setup() {
   bool updateWithDelays = false;
   bool leadingZeros = true;
   bool disableDecPoint = true;
-  sevseg.begin(COMMON_ANODE, digits, digitPins, segmentPins, resistorsOnSegments,
+  sevseg.begin(DISPLAY_TYPE, digits, digitPins, segmentPins, resistorsOnSegments,
                updateWithDelays, leadingZeros, disableDecPoint);
   sevseg.setBrightness(90);
 }
