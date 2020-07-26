@@ -147,6 +147,7 @@ export default function ProjectPage(props: ProjectPageProps) {
       <GlobalStyles />
       <style jsx>{`
         article {
+          font-size: 17px;
           padding: 8px;
           display: flex;
           flex-direction: column;
