@@ -48,7 +48,7 @@ To keep the clock hardware down to minimum, the Arduino controls the 7-Segment d
 This approach as a downside, however: it uses 12 GPIO pins!
 
 If you want to save on Arduino pins, you can use a _74HC595_ shift register to cut the pin usage down to 6, or even a 7-Segment display with an integrated controller chip, such as 
-the *TM1637* or the *MAX7219*. In this case, you will need to change the code to use a different display library (*SevSeg* does not support this case), but this is out of the scope of this project.
+*TM1637*, *HT16K33*, or *MAX7219*. In this case, you will need to change the code to use a different display library (*SevSeg* does not support this case), but this is out of the scope of this project.
 
 ### Diagram
 
