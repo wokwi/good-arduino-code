@@ -199,6 +199,10 @@ export default function ProjectPage(props: ProjectPageProps) {
         .markdown-body iframe {
           max-width: 100%;
         }
+
+        code.arduino {
+          line-height: 1.5;
+        }
       `}</style>
     </div>
   );
