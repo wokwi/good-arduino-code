@@ -16,11 +16,6 @@
 #define USE_RTC 1
 
 /**
-   Speaker pin number
-*/
-const int SPEAKER_PIN = A3;
-
-/**
    For how long should we show the alarm status (on/off)?
 */
 const int ALARM_STATUS_DISPLAY_TIME = 1000; /* ms */

@@ -12,6 +12,9 @@
 #include "Clock.h"
 #include "config.h"
 
+const int COLON_PIN = 13;
+const int SPEAKER_PIN = A3;
+
 Button hourButton = Button(A0);
 Button minuteButton = Button(A1);
 Button alarmButton = Button(A2);
@@ -43,7 +46,8 @@ long millisSinceStateChange() {
 void displayTime() {
   DateTime now = clock.now();
   bool blinkState = now.second() % 2 == 0;
-  sevseg.setNumber(now.hour() * 100 + now.minute(), blinkState ? 2 : -1);
+  sevseg.setNumber(now.hour() * 100 + now.minute());
+  digitalWrite(COLON_PIN, blinkState ? HIGH : LOW);
 }
 
 void clockState() {
@@ -144,15 +148,16 @@ void setup() {
 
   alarmTone.begin(SPEAKER_PIN);
 
+  pinMode(COLON_PIN, OUTPUT);
+
   byte digits = 4;
   byte digitPins[] = {2, 3, 4, 5};
-  byte segmentPins[] = {6, 7, 8, 9, 10, 11, 12, 13};
+  byte segmentPins[] = {6, 7, 8, 9, 10, 11, 12};
   bool resistorsOnSegments = false;
-  byte hardwareConfig = COMMON_ANODE;
   bool updateWithDelays = false;
   bool leadingZeros = true;
-  bool disableDecPoint = false;
-  sevseg.begin(hardwareConfig, digits, digitPins, segmentPins, resistorsOnSegments,
+  bool disableDecPoint = true;
+  sevseg.begin(COMMON_ANODE, digits, digitPins, segmentPins, resistorsOnSegments,
                updateWithDelays, leadingZeros, disableDecPoint);
   sevseg.setBrightness(90);
 }
