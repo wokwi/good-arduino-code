@@ -187,6 +187,10 @@ export default function ProjectPage(props: ProjectPageProps) {
         }
       `}</style>
       <style jsx global>{`
+        article .markdown-body {
+          font-size: inherit;
+        }
+
         .markdown-body figure {
           text-align: center;
         }
