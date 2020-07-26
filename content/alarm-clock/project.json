@@ -1,6 +1,6 @@
 {
   "name": "Alarm Clock",
-  "description": "",
+  "description": "Digital Clock with 7-Segment Display, Alarm, Snooze and RTC",
   "author": "Uri Shaked",
   "thumbnail": "",
   "libraries": ["Button", "RTCLib", "SevSeg"],
