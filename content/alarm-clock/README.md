@@ -11,7 +11,7 @@ This digital alarm clock displays the time on a 4-digit 7-segment display. It ha
 
 To set the time, press the _Minute_/_Hour_ buttons.
 
-Pressing the _Alarm_ button enables/disables the alarm. The screen will display the alarm state by showing the word "on" or "off.
+Pressing the _Alarm_ button enables/disables the alarm. The screen will display the alarm state by showing the word "on" or "off".
 
 After enabling the alarm, the current alarm time will be displayed for a few seconds. You can use the _Minute_/_Hour_ buttons to adjust the alarm time. To finish, press the _Alarm_ button again, or just wait a few seconds.
 
