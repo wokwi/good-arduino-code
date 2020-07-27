@@ -3,12 +3,14 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
-import Highlight from 'react-highlight';
 import ReactMarkdown from 'react-markdown/with-html';
+import { AnnotatedSource } from '../../components/annotated-source';
 import { GlobalStyles } from '../../components/global-styles';
 import { Header } from '../../components/header';
 import { LinkIconButton } from '../../components/link-icon-button';
 import { ISideNavLink, SideNav } from '../../components/side-nav';
+import { reportEvent } from '../../services/analytics';
+import { extractCodeAnnotations, IGACAnnotation } from '../../services/gac-annotations';
 import {
   getProject,
   getProjectCode,
@@ -20,10 +22,13 @@ import { projectFileURL } from '../../services/urls';
 import { HeadingRenderer } from '../../utils/heading-renderer';
 import { headingToId } from '../../utils/heading-to-id';
 import { extractHeadings } from '../../utils/markdown-utils';
-import { reportEvent } from '../../services/analytics';
 
 interface ProjectPageParams extends ParsedUrlQuery {
   id: string;
+}
+
+interface IAnnotatedSourceFile extends IProjectSourceFile {
+  annotations: IGACAnnotation[];
 }
 
 interface ProjectPageProps {
@@ -32,7 +37,7 @@ interface ProjectPageProps {
   author?: string;
   description?: string;
   simulation: string | null;
-  code: IProjectSourceFile[];
+  code: IAnnotatedSourceFile[];
   text: string;
 }
 
@@ -132,7 +137,7 @@ export default function ProjectPage(props: ProjectPageProps) {
         {props.code.map((file) => (
           <section id={fileNameToId(file.name)} key={file.name}>
             <h3>{file.name}</h3>
-            <Highlight>{file.code}</Highlight>
+            <AnnotatedSource code={file.code} annotations={file.annotations} />
           </section>
         ))}
         {props.simulation && (
@@ -226,6 +231,10 @@ export const getStaticProps: GetStaticProps<ProjectPageProps, ProjectPageParams>
     throw new Error('Missing post id');
   }
   const project = await getProject(params.id);
+  const annotatedCode = (await getProjectCode(params.id)).map((sourceFile) => {
+    const { code, annotations } = extractCodeAnnotations(sourceFile.code);
+    return { ...sourceFile, code, annotations };
+  });
   return {
     props: {
       id: params.id,
@@ -234,7 +243,7 @@ export const getStaticProps: GetStaticProps<ProjectPageProps, ProjectPageParams>
       description: project.description,
       simulation: project.simulation ?? null,
       text: await getProjectText(params.id),
-      code: await getProjectCode(params.id),
+      code: annotatedCode,
     },
   };
 };

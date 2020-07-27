@@ -3,19 +3,29 @@
 
    Copyright (C) 2016, Uri Shaked
 
-   Licensed under the MIT License.
+   Released under the MIT License.
 */
 
+/* gac: `pitches.h` defines constants for the different music notes */
 #include "pitches.h"
 
 /* Constants - define pin numbers for LEDs,
    buttons and speaker, and also the game tones: */
+/* gac:start
+   ✅ Define pin numbers as constants at the beginning of the program
+*/
 char ledPins[] = {9, 10, 11, 12};
 char buttonPins[] = {2, 3, 4, 5};
 #define SPEAKER_PIN 8
+/* gac:end */
 
 #define MAX_GAME_LENGTH 100
 
+/* gac: The tone for each button is stored into an array,
+   so we can easily match each LED, button and their corresponding
+   note by looking at a specific index of the `ledPins`, `buttonPins`,
+   and `gameTones` arrays.
+*/
 int gameTones[] = { NOTE_G3, NOTE_C4, NOTE_E4, NOTE_G5};
 
 /* Global variales - store the game state */
@@ -27,13 +37,24 @@ byte gameIndex = 0;
 */
 void setup() {
   Serial.begin(9600);
+  /* gac:start
+     Defining the pins for the LEDs and Buttons in an array allows
+     us to initialize them using a `for` loop, instead of calling
+     the `pinMode()` function for each individual button / LED.
+  */
   for (int i = 0; i < 4; i++) {
     pinMode(ledPins[i], OUTPUT);
     pinMode(buttonPins[i], INPUT_PULLUP);
   }
+  /* gac:end */
   pinMode(SPEAKER_PIN, OUTPUT);
   // The following line primes the random number generator.
   // It assumes pin A0 is floating (disconnected):
+  /* gac: In arduino, the `random()` function will return the sequence
+     of numbers every time you start your program, unless you call
+     `randomSeem()` with a different value each time. To learn more about
+     this trick, check out the ["Making random() more Random"
+     video](https://www.youtube.com/watch?v=FwnXqZB2eo8). */
   randomSeed(analogRead(A0));
 }
 
