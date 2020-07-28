@@ -49,4 +49,19 @@ describe('extractCodeAnnotations', () => {
       ],
     });
   });
+
+  it('should handle CRLF in annotations', () => {
+    const input = '/* gac: hello\r\nworld */\r\nTest';
+
+    expect(extractCodeAnnotations(input)).toEqual({
+      code: 'Test',
+      annotations: [
+        {
+          line: 1,
+          endLine: 1,
+          value: 'hello\nworld',
+        },
+      ],
+    });
+  });
 });

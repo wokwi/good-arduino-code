@@ -28,7 +28,7 @@ export function extractCodeAnnotations(source: string) {
         const content = trimmed
           .substr(trimmed.indexOf(firstWord) + firstWord.length)
           .trim()
-          .replace(/\s*\*\/.*$/, '');
+          .replace(/\s*\*\/.*$/s, '');
         currentAnnotation = {
           line: lineNumber,
           endLine: lineNumber,
@@ -51,7 +51,7 @@ export function extractCodeAnnotations(source: string) {
     if (insideComment && currentAnnotation) {
       const content = line
         .replace(new RegExp(`^ {0,${currentIndent}}`), '')
-        .replace(/\s*\*\/.*$/, '');
+        .replace(/\s*\*\/.*$/s, '');
       currentAnnotation.value += '\n' + content;
       if (trimmed.startsWith('*/') || trimmed.endsWith('*/')) {
         currentAnnotation.value = currentAnnotation.value.trim();
