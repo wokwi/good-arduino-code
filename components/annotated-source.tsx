@@ -1,10 +1,7 @@
 import { IGACAnnotation } from '../services/gac-annotations';
 import Highlight from 'react-highlight';
-import { useRef, useState, useMemo } from 'react';
+import { useRef, useState, useMemo, useLayoutEffect } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
-
-const codeLineHeight = 25.5;
-const lineOffset = (line: number) => line * codeLineHeight;
 
 interface IAnnotatedSourceProps {
   code: string;
@@ -38,6 +35,8 @@ function AnnotationMarkers({ annotations }: { annotations: IGACAnnotation[] }) {
 
 export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
   const codeBoxRef = useRef<HTMLDivElement>(null);
+  const markersRef = useRef<HTMLDivElement>(null);
+
   const [activeAnnotation, setActiveAnnotation] = useState<IGACAnnotation | null>(null);
 
   const highlightedCode = useMemo(() => <Highlight>{code}</Highlight>, [code]);
@@ -51,6 +50,18 @@ export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
     return result;
   }, annotations);
 
+  const [codeLineHeight, setCodeLineHeight] = useState(0);
+  const codeLineOffset = (line: number) => (line - 1) * codeLineHeight;
+  useLayoutEffect(() => {
+    const measure = () =>
+      setCodeLineHeight(
+        markersRef.current?.firstElementChild?.getBoundingClientRect()?.height || 0,
+      );
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [markersRef.current]);
+
   const handleMouseOver = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const codeBox = codeBoxRef.current;
     if (!codeBox) {
@@ -60,10 +71,13 @@ export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
     if (target instanceof HTMLElement && target.closest('.annotation-info')) {
       return;
     }
-    const line = Math.floor((e.pageY - codeBox.offsetTop) / codeLineHeight) + 1;
-    setActiveAnnotation(annotatedLines.get(line) ?? null);
+    if (codeLineHeight) {
+      const line = Math.floor((e.pageY - codeBox.offsetTop) / codeLineHeight) + 1;
+      setActiveAnnotation(annotatedLines.get(line) ?? null);
+    }
   };
 
+  const annotationOffset = codeLineOffset(activeAnnotation?.line ?? 1);
   return (
     <div
       className="code-box"
@@ -76,8 +90,8 @@ export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
         style={{
           width: activeAnnotation ? '100%' : 0,
           visibility: activeAnnotation ? 'visible' : 'hidden',
-          top: lineOffset((activeAnnotation?.line ?? 0) - 1),
-          height: lineOffset((activeAnnotation?.endLine ?? 0) - (activeAnnotation?.line ?? 0) + 1),
+          top: annotationOffset,
+          height: codeLineOffset((activeAnnotation?.endLine ?? 1) + 1) - annotationOffset,
         }}
       >
         &nbsp;
@@ -85,17 +99,17 @@ export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
       <div
         className={`mask ${activeAnnotation ? 'mask-active' : ''}`}
         style={{
-          height: lineOffset((activeAnnotation?.line ?? 0) - 1),
+          height: annotationOffset,
         }}
       />
       <div
         className={`mask ${activeAnnotation ? 'mask-active' : ''}`}
         style={{
-          top: lineOffset(activeAnnotation?.endLine ?? 0),
+          top: codeLineOffset((activeAnnotation?.endLine ?? 1) + 1),
           bottom: 0,
         }}
       />
-      <div className="annotation-markers">
+      <div className="annotation-markers" ref={markersRef}>
         <AnnotationMarkers annotations={annotations} />
       </div>
       {highlightedCode}
@@ -103,7 +117,7 @@ export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
         <div
           className="annotation-info"
           style={{
-            top: lineOffset(activeAnnotation.endLine),
+            top: codeLineOffset(activeAnnotation.endLine + 1),
           }}
         >
           <ReactMarkdown
@@ -114,6 +128,7 @@ export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
       )}
       <style jsx>{`
         .code-box {
+          line-height: 1.5;
           position: relative;
           display: flex;
         }
@@ -126,7 +141,6 @@ export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
         }
 
         .annotation-markers {
-          line-height: 1.5;
           width: 8px;
         }
 
@@ -160,7 +174,6 @@ export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
           position: absolute;
           background: white;
           padding: 0.5em;
-          line-height: 1.5;
           border: solid black 1px;
           width: 100%;
         }
