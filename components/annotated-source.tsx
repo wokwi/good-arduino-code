@@ -135,7 +135,7 @@ export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
           position: absolute;
           background: #00ffc3;
           width: 100%;
-          transition: width 0.2s;
+          transition: width 0.7s;
           z-index: -1;
         }
 
