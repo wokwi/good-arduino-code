@@ -52,7 +52,7 @@ void setup() {
   // It assumes pin A0 is floating (disconnected):
   /* gac: In arduino, the `random()` function will return the sequence
      of numbers every time you start your program, unless you call
-     `randomSeem()` with a different value each time. To learn more about
+     `randomSeed()` with a different value each time. To learn more about
      this trick, check out the ["Making random() more Random"
      video](https://www.youtube.com/watch?v=FwnXqZB2eo8). */
   randomSeed(analogRead(A0));
