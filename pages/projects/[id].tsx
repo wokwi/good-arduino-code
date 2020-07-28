@@ -180,6 +180,8 @@ export default function ProjectPage(props: ProjectPageProps) {
         nav {
           position: sticky;
           top: 0;
+          width: calc((100vw - 784px) / 2);
+          overflow: hidden;
         }
 
         .markdown-body,
