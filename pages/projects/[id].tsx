@@ -165,12 +165,21 @@ export default function ProjectPage(props: ProjectPageProps) {
         }
 
         .nav-container {
-          position: relative;
+          height: 0;
+          position: sticky;
+          top: 16px;
           padding-left: 760px;
         }
 
+        @media (max-width: 700px) {
+          .nav-container {
+            display: none;
+          }
+        }
+
         nav {
-          position: fixed;
+          position: sticky;
+          top: 0;
         }
 
         .markdown-body,
