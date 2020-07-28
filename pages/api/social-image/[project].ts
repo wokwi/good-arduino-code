@@ -1,9 +1,9 @@
+import { promises as fs } from 'fs';
 import { NextApiRequest, NextApiResponse } from 'next';
 import puppeteer from 'puppeteer';
-import { promises as fs } from 'fs';
 import { getProject, IProjectInfo, projectDir } from '../../../services/projects';
+import { chromeArgs } from '../../../utils/puppeteer-chrome-args';
 import { logoVertical } from './logo-vertical';
-const chrome = require('chrome-aws-lambda');
 
 async function readThumbnail(project: IProjectInfo) {
   if (project.thumbnail) {
@@ -94,8 +94,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const projectInfo = await getProject(projectId);
   const browser = await puppeteer.launch({
-    args: chrome.args,
-    executablePath: await chrome.executablePath,
+    args: chromeArgs,
     headless: true,
   });
   try {
