@@ -14,19 +14,19 @@
 /* gac:start
    ✅ Define pin numbers as constants at the beginning of the program
 */
-char ledPins[] = {9, 10, 11, 12};
-char buttonPins[] = {2, 3, 4, 5};
+const byte ledPins[] = {9, 10, 11, 12};
+const byte buttonPins[] = {2, 3, 4, 5};
 #define SPEAKER_PIN 8
 /* gac:end */
 
 #define MAX_GAME_LENGTH 100
 
-/* gac: The tone for each button is stored into an array,
+/* gac: The tone for each button is stored in an array,
    so we can easily match each LED, button and their corresponding
-   note by looking at a specific index of the `ledPins`, `buttonPins`,
+   tone by looking at a specific index of the `ledPins`, `buttonPins`,
    and `gameTones` arrays.
 */
-int gameTones[] = { NOTE_G3, NOTE_C4, NOTE_E4, NOTE_G5};
+const int gameTones[] = { NOTE_G3, NOTE_C4, NOTE_E4, NOTE_G5};
 
 /* Global variales - store the game state */
 byte gameSequence[MAX_GAME_LENGTH] = {0};
