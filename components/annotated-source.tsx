@@ -128,6 +128,7 @@ export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
       )}
       <style jsx>{`
         .code-box {
+          overflow: auto;
           line-height: 1.5;
           position: relative;
           display: flex;
