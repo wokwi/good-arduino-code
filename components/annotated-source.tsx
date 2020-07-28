@@ -65,7 +65,12 @@ export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
   };
 
   return (
-    <div className="code-box" onMouseMoveCapture={handleMouseOver} ref={codeBoxRef}>
+    <div
+      className="code-box"
+      onMouseMoveCapture={handleMouseOver}
+      onMouseLeave={() => setActiveAnnotation(null)}
+      ref={codeBoxRef}
+    >
       <div
         className="highlight"
         style={{
