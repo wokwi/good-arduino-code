@@ -175,6 +175,21 @@ void loop() {
   // Add a random color to the end of the sequence
   gameSequence[gameIndex] = random(0, 4);
   gameIndex++;
+  /* gac:start
+     ✅ Array boundary check
+
+     The C++ language does not protect us from accessing data beyond the
+     end of the array. Therefore, our code must always check that we are
+     still within the array boundaries. Otherwise, we'll get unexpected
+     behavior and the program may crash.
+
+     In this case, we make sure that `gameIndex` always stays below
+     `MAX_GAME_LENGTH`, which is the size of the `gameSequence` array.
+  */
+  if (gameIndex >= MAX_GAME_LENGTH) {
+    gameIndex = MAX_GAME_LENGTH - 1;
+  }
+  /* gac:end */
 
   playSequence();
   checkUserSequence();
