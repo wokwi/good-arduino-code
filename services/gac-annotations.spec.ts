@@ -64,4 +64,19 @@ describe('extractCodeAnnotations', () => {
       ],
     });
   });
+
+  it('should correctly parse single line gac:start annotation', () => {
+    const input = '/*gac:start single line*/\nTest\nLine 2\n/* gac:end*/';
+
+    expect(extractCodeAnnotations(input)).toEqual({
+      code: 'Test\nLine 2',
+      annotations: [
+        {
+          line: 1,
+          endLine: 2,
+          value: 'single line',
+        },
+      ],
+    });
+  });
 });

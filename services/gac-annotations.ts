@@ -21,7 +21,7 @@ export function extractCodeAnnotations(source: string) {
   for (const line of source.split('\n')) {
     const trimmed = line.trim();
     if (trimmed.startsWith('/*')) {
-      const firstWord = trimmed.substr(2).trim().split(' ')[0];
+      const firstWord = trimmed.substr(2).trim().split(/[ *]/)[0];
       if (firstWord === keywords.gac || firstWord === keywords.gacStart) {
         insideComment = true;
         insideSection = firstWord === keywords.gacStart;
@@ -35,9 +35,11 @@ export function extractCodeAnnotations(source: string) {
           value: content,
         };
         annotations.push(currentAnnotation);
-        if (trimmed.includes('*/') && !insideSection) {
+        if (trimmed.includes('*/')) {
           insideComment = false;
-          currentAnnotation = null;
+          if (!insideSection) {
+            currentAnnotation = null;
+          }
         }
         currentIndent = line.indexOf(firstWord);
         continue;
