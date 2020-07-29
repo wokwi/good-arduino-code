@@ -6,7 +6,9 @@
    Released under the MIT License.
 */
 
-/* gac: `pitches.h` defines constants for the different music notes */
+/* gac: [pitches.h](#source-pitches_h) defines constants for the different music notes.
+   For instance, it defines `NOTE_G3` and `NOTE_C4` that we use below, when we initialize
+   the `gameTones` array. */
 #include "pitches.h"
 
 /* Constants - define pin numbers for LEDs,
@@ -50,7 +52,7 @@ byte gameIndex = 0;
 void setup() {
   Serial.begin(9600);
   /* gac:start
-     Defining the pins for the LEDs and Buttons in an array allows
+     ✅ Defining the pins for the LEDs and buttons in an array allows
      us to initialize them using a `for` loop, instead of calling
      the `pinMode()` function for each individual button / LED.
   */
@@ -73,6 +75,7 @@ void setup() {
 /**
    Lights the given LED and plays the suitable tone
 */
+/* gac: ✅ Good function name: describes exactly what it does */
 void lightLedAndPlayTone(byte ledIndex) {
   digitalWrite(ledPins[ledIndex], HIGH);
   tone(SPEAKER_PIN, gameTones[ledIndex]);
@@ -117,6 +120,9 @@ void gameOver() {
   gameIndex = 0;
   delay(200);
 
+  /* gac: This comment is essential here. The code below isn't very straightforward,
+     and the comment summarizes what it does. It might even be better to move this
+     code into a separate function, and call it something like `playGameOverSound()`. */
   // Play a Wah-Wah-Wah-Wah sound
   tone(SPEAKER_PIN, NOTE_DS5);
   delay(300);
@@ -133,27 +139,25 @@ void gameOver() {
 }
 
 /**
-   Get the user input and compare it with the expected sequence.
-   If the user fails, play the game over sequence and restart the game.
+   Get the user's input and compare it with the expected sequence.
 */
-void checkUserSequence() {
+bool checkUserSequence() {
   for (int i = 0; i < gameIndex; i++) {
     byte expectedButton = gameSequence[i];
     byte actualButton = readButtons();
     lightLedAndPlayTone(actualButton);
-    if (expectedButton == actualButton) {
-      /* good */
-    } else {
-      gameOver();
-      return;
+    if (expectedButton != actualButton) {
+      return false;
     }
   }
+
+  return true;
 }
 
 /**
    Plays an hooray sound whenever the user finishes a level
 */
-void levelUp() {
+void playLevelUpSound() {
   tone(SPEAKER_PIN, NOTE_E4);
   delay(150);
   tone(SPEAKER_PIN, NOTE_G4);
@@ -193,11 +197,14 @@ void loop() {
   /* gac:end */
 
   playSequence();
-  checkUserSequence();
+  if (!checkUserSequence()) {
+    gameOver();
+  }
+
   delay(300);
 
   if (gameIndex > 0) {
-    levelUp();
+    playLevelUpSound();
     delay(300);
   }
 }
