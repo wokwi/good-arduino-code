@@ -73,7 +73,7 @@ void setup() {
 /**
    Lights the given led and plays the suitable tone
 */
-void lightLedAndPlaySound(byte ledIndex) {
+void lightLedAndPlayTone(byte ledIndex) {
   digitalWrite(ledPins[ledIndex], HIGH);
   tone(SPEAKER_PIN, gameTones[ledIndex]);
   delay(300);
@@ -87,7 +87,7 @@ void lightLedAndPlaySound(byte ledIndex) {
 void playSequence() {
   for (int i = 0; i < gameIndex; i++) {
     byte currentLed = gameSequence[i];
-    lightLedAndPlaySound(currentLed);
+    lightLedAndPlayTone(currentLed);
     delay(50);
   }
 }
@@ -140,7 +140,7 @@ void checkUserSequence() {
   for (int i = 0; i < gameIndex; i++) {
     byte expectedButton = gameSequence[i];
     byte actualButton = readButton();
-    lightLedAndPlaySound(actualButton);
+    lightLedAndPlayTone(actualButton);
     if (expectedButton == actualButton) {
       /* good */
     } else {
