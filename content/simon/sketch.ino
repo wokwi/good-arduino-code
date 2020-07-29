@@ -97,7 +97,7 @@ void playSequence() {
     and returns the index of that button
 */
 byte readButton() {
-  for (;;) {
+  while (true) {
     for (int i = 0; i < 4; i++) {
       byte buttonPin = buttonPins[i];
       if (digitalRead(buttonPin) == LOW) {
