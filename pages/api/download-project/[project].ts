@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { promisify } from 'util';
 import ZipStream from 'zip-stream';
 import { getProjectCode } from '../../../services/projects';
+import { extractCodeAnnotations } from '../../../services/gac-annotations';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const {
@@ -17,7 +18,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   zip.pipe(res);
   for (const file of await getProjectCode(projectId)) {
-    await promisify(zip.entry).call(zip, file.code, { name: file.name });
+    const { code } = extractCodeAnnotations(file.code);
+    await promisify(zip.entry).call(zip, code, { name: file.name });
   }
   zip.finalize();
 };
