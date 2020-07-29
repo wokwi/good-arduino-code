@@ -52,4 +52,3 @@ The code is divided into three modules:
 | A2          | Keypad | C2         |
 | A1          | Keypad | C3         |
 | A0          | Keypad | C4         |
-
