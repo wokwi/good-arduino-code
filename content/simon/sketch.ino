@@ -19,6 +19,9 @@ const byte buttonPins[] = {2, 3, 4, 5};
 #define SPEAKER_PIN 8
 /* gac:end */
 
+/* gac:
+   ✅ Defining the max game length as a constant makes it clear
+   what this "magic" number controls. */
 #define MAX_GAME_LENGTH 100
 
 /* gac: The tone for each button is stored in an array,
@@ -29,8 +32,17 @@ const byte buttonPins[] = {2, 3, 4, 5};
 const int gameTones[] = { NOTE_G3, NOTE_C4, NOTE_E4, NOTE_G5};
 
 /* Global variales - store the game state */
+/* gac:start
+   ✅ It's a good pratice to initialize all variables to a default value when
+   delcaring them.
+
+   We use `gameSequence` to keep track of the current color sequence
+   that the user has to repeat, and `gameIndex` tells us how long the
+   sequence is, so we know how many cells of the array we should look at.
+*/
 byte gameSequence[MAX_GAME_LENGTH] = {0};
 byte gameIndex = 0;
+/* gac:end */
 
 /**
    Set up the Arduino board and initialize Serial communication
