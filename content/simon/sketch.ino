@@ -54,7 +54,7 @@ void setup() {
      us to initialize them using a `for` loop, instead of calling
      the `pinMode()` function for each individual button / LED.
   */
-  for (int i = 0; i < 4; i++) {
+  for (byte i = 0; i < 4; i++) {
     pinMode(ledPins[i], OUTPUT);
     pinMode(buttonPins[i], INPUT_PULLUP);
   }
@@ -86,7 +86,7 @@ void lightLedAndPlaySound(byte ledIndex) {
 */
 void playSequence() {
   for (int i = 0; i < gameIndex; i++) {
-    char currentLed = gameSequence[i];
+    byte currentLed = gameSequence[i];
     lightLedAndPlaySound(currentLed);
     delay(50);
   }
@@ -98,7 +98,7 @@ void playSequence() {
 */
 byte readButton() {
   while (true) {
-    for (int i = 0; i < 4; i++) {
+    for (byte i = 0; i < 4; i++) {
       byte buttonPin = buttonPins[i];
       if (digitalRead(buttonPin) == LOW) {
         return i;
@@ -116,6 +116,7 @@ void gameOver() {
   Serial.println(gameIndex - 1);
   gameIndex = 0;
   delay(200);
+
   // Play a Wah-Wah-Wah-Wah sound
   tone(SPEAKER_PIN, NOTE_DS5);
   delay(300);
@@ -123,7 +124,7 @@ void gameOver() {
   delay(300);
   tone(SPEAKER_PIN, NOTE_CS5);
   delay(300);
-  for (int i = 0; i < 200; i++) {
+  for (byte i = 0; i < 200; i++) {
     tone(SPEAKER_PIN, NOTE_C5 + (i % 20 - 10));
     delay(5);
   }
@@ -137,8 +138,8 @@ void gameOver() {
 */
 void checkUserSequence() {
   for (int i = 0; i < gameIndex; i++) {
-    char expectedButton = gameSequence[i];
-    char actualButton = readButton();
+    byte expectedButton = gameSequence[i];
+    byte actualButton = readButton();
     lightLedAndPlaySound(actualButton);
     if (expectedButton == actualButton) {
       /* good */
