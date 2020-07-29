@@ -165,6 +165,7 @@ export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
           background: white;
           width: 100%;
           top: 0;
+          pointer-events: none;
         }
         .mask.mask-active {
           opacity: 0.6;
