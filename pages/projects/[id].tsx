@@ -34,6 +34,7 @@ interface IAnnotatedSourceFile extends IProjectSourceFile {
 interface ProjectPageProps {
   id: string;
   name: string;
+  lastModified: number;
   author?: string;
   description?: string;
   simulation: string | null;
@@ -84,7 +85,7 @@ export default function ProjectPage(props: ProjectPageProps) {
         />
         <meta
           property="og:image"
-          content={`https://goodarduinocode.com/api/social-image/${props.id}.png?v=3`}
+          content={`https://goodarduinocode.com/api/social-image/${props.id}.png?ts=${props.lastModified}`}
         />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
@@ -239,6 +240,7 @@ export const getStaticProps: GetStaticProps<ProjectPageProps, ProjectPageParams>
     props: {
       id: params.id,
       name: project.name,
+      lastModified: project.lastModified,
       author: project.author,
       description: project.description,
       simulation: project.simulation ?? null,

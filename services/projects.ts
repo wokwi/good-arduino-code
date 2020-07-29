@@ -4,6 +4,7 @@ import { extname } from 'path';
 export interface IProjectInfo {
   id: string;
   name: string;
+  lastModified: number;
   author?: string;
   description?: string;
   thumbnail?: string;
@@ -28,9 +29,11 @@ export function projectDir(id: string) {
 }
 
 export async function getProject(id: string) {
+  const projectJson = `${projectDir(id)}/project.json`;
   return {
-    ...JSON.parse(await fs.readFile(`${projectDir(id)}/project.json`, 'utf-8')),
+    ...JSON.parse(await fs.readFile(projectJson, 'utf-8')),
     id,
+    lastModified: (await fs.stat(projectJson)).mtime.getTime(),
   } as IProjectInfo;
 }
 
