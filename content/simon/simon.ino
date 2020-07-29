@@ -71,7 +71,7 @@ void setup() {
 }
 
 /**
-   Lights the given led and plays the suitable tone
+   Lights the given LED and plays the suitable tone
 */
 void lightLedAndPlayTone(byte ledIndex) {
   digitalWrite(ledPins[ledIndex], HIGH);
@@ -96,7 +96,7 @@ void playSequence() {
     Waits until the user pressed one of the buttons,
     and returns the index of that button
 */
-byte readButton() {
+byte readButtons() {
   while (true) {
     for (byte i = 0; i < 4; i++) {
       byte buttonPin = buttonPins[i];
@@ -139,7 +139,7 @@ void gameOver() {
 void checkUserSequence() {
   for (int i = 0; i < gameIndex; i++) {
     byte expectedButton = gameSequence[i];
-    byte actualButton = readButton();
+    byte actualButton = readButtons();
     lightLedAndPlayTone(actualButton);
     if (expectedButton == actualButton) {
       /* good */
