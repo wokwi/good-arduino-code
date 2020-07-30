@@ -100,6 +100,7 @@ void playSequence() {
     and returns the index of that button
 */
 byte readButtons() {
+  /* gac:  The `while` loop will run continuously until one of the buttons is pressed. */
   while (true) {
     for (byte i = 0; i < 4; i++) {
       byte buttonPin = buttonPins[i];
@@ -130,9 +131,14 @@ void gameOver() {
   delay(300);
   tone(SPEAKER_PIN, NOTE_CS5);
   delay(300);
-  for (byte i = 0; i < 200; i++) {
-    tone(SPEAKER_PIN, NOTE_C5 + (i % 20 - 10));
-    delay(5);
+  for (byte i = 0; i < 10; i++) {
+    /* gac:start
+       Makes the tone sound wavy by slightly adjusting the pitch. */
+    for (int pitch = -10; pitch <= 10; pitch++) {
+      tone(SPEAKER_PIN, NOTE_C5 + pitch);
+      delay(5);
+      /* gac:end */
+    }
   }
   noTone(SPEAKER_PIN);
   delay(500);
