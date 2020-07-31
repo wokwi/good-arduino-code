@@ -33,10 +33,10 @@ const byte buttonPins[] = {2, 3, 4, 5};
 */
 const int gameTones[] = { NOTE_G3, NOTE_C4, NOTE_E4, NOTE_G5};
 
-/* Global variales - store the game state */
+/* Global variables - store the game state */
 /* gac:start
-   ✅ It's a good pratice to initialize all variables to a default value when
-   delcaring them.
+   ✅ It's a good practice to initialize all variables to a default value when
+   declaring them.
 
    We use `gameSequence` to keep track of the current color sequence
    that the user has to repeat, and `gameIndex` tells us how long the
@@ -73,7 +73,7 @@ void setup() {
 }
 
 /**
-   Lights the given LED and plays the suitable tone
+   Lights the given LED and plays a suitable tone
 */
 /* gac: ✅ Good function name: describes exactly what it does */
 void lightLedAndPlayTone(byte ledIndex) {
@@ -161,7 +161,7 @@ bool checkUserSequence() {
 }
 
 /**
-   Plays an hooray sound whenever the user finishes a level
+   Plays a hooray sound whenever the user finishes a level
 */
 void playLevelUpSound() {
   tone(SPEAKER_PIN, NOTE_E4);
