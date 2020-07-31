@@ -1,8 +1,15 @@
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
-import SyntaxHighlighter from 'react-syntax-highlighter';
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import arduino from 'react-syntax-highlighter/dist/cjs/languages/hljs/arduino';
+import clike from 'react-syntax-highlighter/dist/cjs/languages/hljs/c-like';
+import cpp from 'react-syntax-highlighter/dist/cjs/languages/hljs/cpp';
 import { arduinoLight } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { IGACAnnotation } from '../services/gac-annotations';
+
+SyntaxHighlighter.registerLanguage('c-like', clike); // `arduino` requires `clike`
+SyntaxHighlighter.registerLanguage('cpp', cpp); // `arduino` requires `cpp`
+SyntaxHighlighter.registerLanguage('arduino', arduino);
 
 interface IAnnotatedSourceProps {
   code: string;
