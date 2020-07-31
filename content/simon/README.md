@@ -10,6 +10,8 @@ color at the end of the sequence, and move to the next turn.
 The game continues until the user has made a mistake. Then a game over sound is
 played, and the game restarts.
 
+![Simon Game Shield for Arduino Uno](https://i.imgur.com/CBVsVxzh.jpg)
+
 ### Hardware
 
 | Item             | Quantity | Notes                        |
@@ -19,6 +21,16 @@ played, and the game restarts.
 | 12mm Push button | 4        | Red, Green, Blue, and Yellow |
 | Resistor         | 4        | 220Ω                         |
 | Piezo Buzzer     | 1        |                              |
+
+<figure>
+    <img src="https://i.imgur.com/cnNS8rsh.jpg" alt="Simon hardware kit" />
+    <figcaption>
+      Hardware for the Simon game, 
+      <a href="https://www.tindie.com/products/wokwi/kit-for-simon-style-game-arduino-shield/" target="_blank">
+        kit available on Tindie
+      </a>
+    </figcaption>
+</figure>
 
 ### Diagram
 
