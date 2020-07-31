@@ -27,12 +27,12 @@ describe('projects', () => {
       const result = await getProjectCode('simon');
       expect(result.length).toEqual(2);
       const fileNames = result.map((file) => file.name);
-      expect(fileNames).toEqual(['sketch.ino', 'pitches.h']);
+      expect(fileNames).toEqual(['simon.ino', 'pitches.h']);
     });
 
     it('should mark the sketch as primary, other files as non-primary', async () => {
       const result = await getProjectCode('simon');
-      expect(result[0].name).toEqual('sketch.ino');
+      expect(result[0].name).toEqual('simon.ino');
       expect(result[0].primary).toEqual(true);
       expect(result[1].primary).toEqual(false);
     });
