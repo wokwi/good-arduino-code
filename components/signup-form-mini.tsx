@@ -46,7 +46,7 @@ const options = {
 export function SignupFormMini() {
   return (
     <>
-      <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+      <script src="https://f.convertkit.com/ckjs/ck.5.js" async></script>
       <form
         action="https://app.convertkit.com/forms/1479267/subscriptions"
         className="seva-form formkit-form"
