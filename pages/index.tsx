@@ -5,6 +5,7 @@ import { GlobalStyles } from '../components/global-styles';
 import { SignupForm } from '../components/signup-form';
 import { getProject, getProjects, IProjectInfo } from '../services/projects';
 import { thumbnailUrl } from '../services/urls';
+import { GacLogo } from '../components/gac-logo';
 
 interface IndexProps {
   projects: IProjectInfo[];
@@ -32,7 +33,7 @@ export default function Home(props: IndexProps) {
       <SignupForm />
 
       <main>
-        <img src="gac-logo.svg" alt="Good Arduino Code" />
+        <GacLogo aria-label="Good Arduino Code Logo" />
 
         <p className="description" style={{ marginTop: 0 }}>
           <strong>
@@ -48,7 +49,9 @@ export default function Home(props: IndexProps) {
                 className="card"
                 style={{
                   backgroundImage: project.thumbnail
-                    ? `url(${thumbnailUrl(project, { maxHeight: 200 })}`
+                    ? `-webkit-image-set(
+                        url(${thumbnailUrl(project, { maxHeight: 200 })}) 1x,
+                        url(${thumbnailUrl(project, { maxHeight: 400 })}) 2x)`
                     : '',
                 }}
               >
