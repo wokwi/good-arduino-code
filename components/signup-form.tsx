@@ -77,9 +77,11 @@ export function SignupForm() {
             </div>
             <div className="formkit-field">
               <input
+                id="formkit-input-email"
                 className="formkit-input"
                 name="email_address"
                 placeholder="Your email address"
+                aria-label="Your email address"
                 required
                 type="email"
               />

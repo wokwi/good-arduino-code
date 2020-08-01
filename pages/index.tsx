@@ -24,6 +24,7 @@ function ProjectCard({ project }: { project: IProjectInfo }) {
               projectImageUrl(id, thumbnail, { maxHeight: 300 }) + ' 1.5x',
               projectImageUrl(id, thumbnail, { maxHeight: 400 }) + ' 2x',
             ].join(', ')}
+            alt={project.name}
           />
         )}
         <h3>

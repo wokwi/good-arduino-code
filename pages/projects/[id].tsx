@@ -145,7 +145,7 @@ export default function ProjectPage(props: ProjectPageProps) {
           <>
             <h2 id="simulation">Simulation</h2>
             <section>
-              <iframe src={props.simulation}></iframe>
+              <iframe src={props.simulation} title="Arduino Simulation"></iframe>
             </section>
           </>
         )}

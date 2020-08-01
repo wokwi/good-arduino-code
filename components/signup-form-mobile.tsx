@@ -69,6 +69,7 @@ export function SignupFormMobile() {
               <input
                 className="formkit-input"
                 name="email_address"
+                aria-label="Your email address"
                 placeholder="name@company.com"
                 required
                 type="email"

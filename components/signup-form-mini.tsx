@@ -70,6 +70,7 @@ export function SignupFormMini() {
               <input
                 className="formkit-input"
                 name="email_address"
+                aria-label="Your email address"
                 placeholder="Get new Arduino examples every week"
                 required
                 type="email"
