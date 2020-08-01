@@ -18,7 +18,7 @@ import {
   getProjectText,
   IProjectSourceFile,
 } from '../../services/projects';
-import { projectFileURL } from '../../services/urls';
+import { projectFileURL, projectImageUrl } from '../../services/urls';
 import { HeadingRenderer } from '../../utils/heading-renderer';
 import { headingToId } from '../../utils/heading-to-id';
 import { extractHeadings } from '../../utils/markdown-utils';
@@ -51,7 +51,7 @@ function fileNameToId(filename: string) {
 function fixImageUrls(id: string, markdown: string) {
   return markdown.replace(
     /src=["']([^"'>]+)['"]/g,
-    (_, path) => `src="${projectFileURL(id, path)}"`,
+    (_, path) => `src="${projectImageUrl(id, path, { maxWidth: 700 })}"`,
   );
 }
 

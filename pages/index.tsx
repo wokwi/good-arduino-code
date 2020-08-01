@@ -46,7 +46,11 @@ export default function Home(props: IndexProps) {
             <Link href="projects/[id]" as={`projects/${project.id}`} key={project.id}>
               <a
                 className="card"
-                style={{ backgroundImage: project.thumbnail ? `url(${thumbnailUrl(project)}` : '' }}
+                style={{
+                  backgroundImage: project.thumbnail
+                    ? `url(${thumbnailUrl(project, { maxHeight: 200 })}`
+                    : '',
+                }}
               >
                 <h3>
                   <span>{project.name}</span>

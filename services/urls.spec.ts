@@ -1,4 +1,15 @@
-import { projectFileURL, thumbnailUrl } from './urls';
+import { projectFileURL, projectImageUrl, thumbnailUrl } from './urls';
+
+let isProduction = false;
+jest.mock('./environment', () => ({
+  get isProduction() {
+    return isProduction;
+  },
+}));
+
+beforeEach(() => {
+  isProduction = false;
+});
 
 describe('projectFileURL', () => {
   it('should return the full URL of the given project file', async () => {
@@ -13,6 +24,22 @@ describe('projectFileURL', () => {
 
   it('should return the input URL for https:// URL', async () => {
     expect(projectFileURL('simon', 'https://example.org')).toEqual('https://example.org');
+  });
+});
+
+describe('projectImageUrl', () => {
+  it('should return convertkit URL on production environment', () => {
+    isProduction = true;
+    expect(projectImageUrl('simon', 'test.png')).toEqual(
+      'https://ik.imagekit.io/tlnjt5rshw/simon/test.png',
+    );
+  });
+
+  it('should add query string according to the maxWidth / maxHeight options', () => {
+    isProduction = true;
+    expect(projectImageUrl('simon', 'test.png', { maxWidth: 200, maxHeight: 300 })).toEqual(
+      'https://ik.imagekit.io/tlnjt5rshw/simon/test.png?tr=w-200,h-300',
+    );
   });
 });
 
