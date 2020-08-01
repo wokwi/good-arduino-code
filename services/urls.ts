@@ -30,10 +30,3 @@ export function projectImageUrl(id: string, uri: string, options: IImageOptions 
   const baseUrl = projectFileURL(id, uri);
   return isProduction ? imageKitUrl(baseUrl, options) : baseUrl;
 }
-
-export function thumbnailUrl(
-  { id, thumbnail }: { id: string; thumbnail?: string },
-  options: IImageOptions = {},
-) {
-  return thumbnail ? projectImageUrl(id, thumbnail, options) : null;
-}

@@ -1,14 +1,88 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import { GacLogo } from '../components/gac-logo';
 import { GlobalStyles } from '../components/global-styles';
 import { SignupForm } from '../components/signup-form';
 import { getProject, getProjects, IProjectInfo } from '../services/projects';
-import { thumbnailUrl } from '../services/urls';
-import { GacLogo } from '../components/gac-logo';
+import { projectImageUrl } from '../services/urls';
 
 interface IndexProps {
   projects: IProjectInfo[];
+}
+
+function ProjectCard({ project }: { project: IProjectInfo }) {
+  const { id, thumbnail } = project;
+  return (
+    <a className="card">
+      {thumbnail && (
+        <img
+          src={projectImageUrl(id, thumbnail, { maxHeight: 200 })}
+          srcSet={[
+            projectImageUrl(id, thumbnail, { maxHeight: 200 }),
+            projectImageUrl(id, thumbnail, { maxHeight: 300 }) + ' 1.5x',
+            projectImageUrl(id, thumbnail, { maxHeight: 400 }) + ' 2x',
+          ].join(', ')}
+        />
+      )}
+      <h3>
+        <span>{project.name}</span>
+      </h3>
+      <p>
+        <span>{project.description}</span>
+      </p>
+      <style jsx>{`
+        .card {
+          position: relative;
+          margin: 1rem;
+          flex-basis: 45%;
+          padding: 1.5rem;
+          text-align: left;
+          color: inherit;
+          text-decoration: none;
+          border: 1px solid #eaeaea;
+          border-radius: 10px;
+          transition: color 0.15s ease, border-color 0.15s ease;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: 100% 50%;
+          min-height: 200px;
+        }
+
+        .card:hover,
+        .card:focus,
+        .card:active {
+          color: #0070f3;
+          border-color: #0070f3;
+        }
+
+        .card > img {
+          position: absolute;
+          top: 0;
+          height: 200px;
+          right: 0;
+          z-index: -1;
+        }
+
+        .card h3 {
+          margin: 0 0 1rem 0;
+          font-size: 1.5rem;
+        }
+
+        .card h3 > span,
+        .card p > span {
+          background-color: white;
+          padding: 0 8px 0 0;
+        }
+
+        .card p {
+          margin: 0;
+          font-size: 1.25rem;
+          line-height: 1.5;
+        }
+      `}</style>
+    </a>
+  );
 }
 
 export default function Home(props: IndexProps) {
@@ -45,23 +119,7 @@ export default function Home(props: IndexProps) {
         <div className="grid">
           {props.projects.map((project) => (
             <Link href="projects/[id]" as={`projects/${project.id}`} key={project.id}>
-              <a
-                className="card"
-                style={{
-                  backgroundImage: project.thumbnail
-                    ? `-webkit-image-set(
-                        url(${thumbnailUrl(project, { maxHeight: 200 })}) 1x,
-                        url(${thumbnailUrl(project, { maxHeight: 400 })}) 2x)`
-                    : '',
-                }}
-              >
-                <h3>
-                  <span>{project.name}</span>
-                </h3>
-                <p>
-                  <span>{project.description}</span>
-                </p>
-              </a>
+              <ProjectCard project={project} />
             </Link>
           ))}
         </div>
@@ -148,46 +206,6 @@ export default function Home(props: IndexProps) {
 
           max-width: 800px;
           margin-top: 3rem;
-        }
-
-        .card {
-          margin: 1rem;
-          flex-basis: 45%;
-          padding: 1.5rem;
-          text-align: left;
-          color: inherit;
-          text-decoration: none;
-          border: 1px solid #eaeaea;
-          border-radius: 10px;
-          transition: color 0.15s ease, border-color 0.15s ease;
-          background-size: contain;
-          background-repeat: no-repeat;
-          background-position: 100% 50%;
-          min-height: 200px;
-        }
-
-        .card:hover,
-        .card:focus,
-        .card:active {
-          color: #0070f3;
-          border-color: #0070f3;
-        }
-
-        .card h3 {
-          margin: 0 0 1rem 0;
-          font-size: 1.5rem;
-        }
-
-        .card h3 > span,
-        .card p > span {
-          background-color: white;
-          padding: 0 8px 0 0;
-        }
-
-        .card p {
-          margin: 0;
-          font-size: 1.25rem;
-          line-height: 1.5;
         }
 
         @media (max-width: 600px) {

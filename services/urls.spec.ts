@@ -1,4 +1,4 @@
-import { projectFileURL, projectImageUrl, thumbnailUrl } from './urls';
+import { projectFileURL, projectImageUrl } from './urls';
 
 let isProduction = false;
 jest.mock('./environment', () => ({
@@ -40,17 +40,5 @@ describe('projectImageUrl', () => {
     expect(projectImageUrl('simon', 'test.png', { maxWidth: 200, maxHeight: 300 })).toEqual(
       'https://ik.imagekit.io/tlnjt5rshw/simon/test.png?tr=w-200,h-300',
     );
-  });
-});
-
-describe('thumbnailUrl', () => {
-  it('should return the thumbnail URL for the given project', () => {
-    expect(thumbnailUrl({ id: 'simon', thumbnail: 'images/thumbnail.png' })).toEqual(
-      '/api/files/simon/images/thumbnail.png',
-    );
-  });
-
-  it('should return null if the project has no thumbnail', () => {
-    expect(thumbnailUrl({ id: 'simon' })).toBeNull();
   });
 });
