@@ -4,10 +4,20 @@ import Link from 'next/link';
 import { GlobalStyles } from '../components/global-styles';
 import { SignupForm } from '../components/signup-form';
 import { getProject, getProjects, IProjectInfo } from '../services/projects';
-import { thumbnailUrl } from '../services/urls';
 
 interface IndexProps {
   projects: IProjectInfo[];
+}
+
+function thumbnailImage(project: string, thumbnail?: string) {
+  if (!thumbnail) {
+    return '';
+  }
+  if (thumbnail.includes('https://')) {
+    return `url(${thumbnail}`;
+  }
+  console.log('load', project, thumbnail);
+  return `url(${require(`../content/${project}/${thumbnail}?height=400`)})`;
 }
 
 export default function Home(props: IndexProps) {
@@ -46,7 +56,9 @@ export default function Home(props: IndexProps) {
             <Link href="projects/[id]" as={`projects/${project.id}`} key={project.id}>
               <a
                 className="card"
-                style={{ backgroundImage: project.thumbnail ? `url(${thumbnailUrl(project)}` : '' }}
+                style={{
+                  backgroundImage: thumbnailImage(project.id, project.thumbnail),
+                }}
               >
                 <h3>
                   <span>{project.name}</span>
