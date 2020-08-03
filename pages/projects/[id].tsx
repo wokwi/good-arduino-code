@@ -95,99 +95,102 @@ export default function ProjectPage(props: ProjectPageProps) {
       </Head>
 
       <Header />
-      <article>
-        <header>
-          <h1 id="start">{props.name}</h1>
-        </header>
-        <div className="nav-container">
-          <nav>
+
+      <div className="page-layout">
+        <nav>
+          <div className="nav-content">
             <SideNav links={getSectionLinks(props)} />
-          </nav>
-        </div>
-        <section className="markdown-body">
-          <ReactMarkdown
-            escapeHtml={false}
-            source={fixImageUrls(props.id, props.text)}
-            transformImageUri={transformImageUri(props.id)}
-            renderers={{ heading: HeadingRenderer }}
-            linkTarget={(url) => (url.startsWith('#') ? '' : '_blank')}
-          />
-        </section>
-        <h2 id="source-code">Source code</h2>
-        <section>
-          <LinkIconButton
-            href={`/api/download-project/${props.id}.zip`}
-            icon={mdiDownload}
-            onClick={() =>
-              reportEvent({ action: 'download', category: 'project', label: props.id })
-            }
-          >
-            Download project
-          </LinkIconButton>
-          <LinkIconButton
-            icon={mdiGithub}
-            href={`https://github.com/wokwi/good-arduino-code/tree/master/content/${props.id}`}
-            onClick={() =>
-              reportEvent({ action: 'view-on-github', category: 'project', label: props.id })
-            }
-            target="_blank"
-          >
-            View on GitHub
-          </LinkIconButton>
-        </section>
-        {props.code.map((file) => (
-          <section id={fileNameToId(file.name)} key={file.name}>
-            <h3>{file.name}</h3>
-            <AnnotatedSource code={file.code} annotations={file.annotations} />
+          </div>
+        </nav>
+
+        <article>
+          <header>
+            <h1 id="start">{props.name}</h1>
+          </header>
+          <section className="markdown-body">
+            <ReactMarkdown
+              escapeHtml={false}
+              source={fixImageUrls(props.id, props.text)}
+              transformImageUri={transformImageUri(props.id)}
+              renderers={{ heading: HeadingRenderer }}
+              linkTarget={(url) => (url.startsWith('#') ? '' : '_blank')}
+            />
           </section>
-        ))}
-        {props.simulation && (
-          <>
-            <h2 id="simulation">Simulation</h2>
-            <section>
-              <iframe src={props.simulation} title="Arduino Simulation"></iframe>
+          <h2 id="source-code">Source code</h2>
+          <section>
+            <LinkIconButton
+              href={`/api/download-project/${props.id}.zip`}
+              icon={mdiDownload}
+              onClick={() =>
+                reportEvent({ action: 'download', category: 'project', label: props.id })
+              }
+            >
+              Download project
+            </LinkIconButton>
+            <LinkIconButton
+              icon={mdiGithub}
+              href={`https://github.com/wokwi/good-arduino-code/tree/master/content/${props.id}`}
+              onClick={() =>
+                reportEvent({ action: 'view-on-github', category: 'project', label: props.id })
+              }
+              target="_blank"
+            >
+              View on GitHub
+            </LinkIconButton>
+          </section>
+          {props.code.map((file) => (
+            <section id={fileNameToId(file.name)} key={file.name}>
+              <h3>{file.name}</h3>
+              <AnnotatedSource code={file.code} annotations={file.annotations} />
             </section>
-          </>
-        )}
-      </article>
+          ))}
+          {props.simulation && (
+            <>
+              <h2 id="simulation">Simulation</h2>
+              <section>
+                <iframe src={props.simulation} title="Arduino Simulation"></iframe>
+              </section>
+            </>
+          )}
+        </article>
+      </div>
       <GlobalStyles />
       <style jsx>{`
-        article {
+        .page-layout {
+          display: grid;
+          grid-template-columns: 1fr 732px 1fr;
           font-size: 17px;
+          max-width: 100vw;
+        }
+
+        article {
+          grid-area: 1 / 2;
           padding: 8px;
           display: flex;
           flex-direction: column;
           align-items: center;
-        }
-
-        header,
-        section,
-        .nav-container,
-        h1,
-        h2,
-        h3 {
-          width: 716px;
           max-width: 100vw;
         }
 
-        .nav-container {
-          height: 0;
-          position: sticky;
-          top: 16px;
-          padding-left: 760px;
+        nav {
+          grid-area: 1 / 3;
         }
 
-        @media (max-width: 700px) {
-          .nav-container {
+        .nav-content {
+          position: sticky;
+          top: 16px;
+          margin: 16px 0 0 14px;
+        }
+
+        @media (max-width: 890px) {
+          nav {
             display: none;
           }
         }
 
-        nav {
-          position: sticky;
-          top: 0;
-          width: calc((100vw - 784px) / 2);
-          overflow: hidden;
+        header,
+        section {
+          width: 100%;
         }
 
         .markdown-body,
@@ -195,6 +198,7 @@ export default function ProjectPage(props: ProjectPageProps) {
         h2,
         h3 {
           padding: 0 8px;
+          width: 100%;
         }
 
         iframe {
