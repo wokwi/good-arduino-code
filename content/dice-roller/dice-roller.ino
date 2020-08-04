@@ -49,9 +49,11 @@ void loop() {
      ✅ Give `digitalRead(...)` a meaningful name by storing the result
      it into a variable */
   bool buttonPressed = digitalRead(BUTTON_PIN) == LOW;
+   /* gac:
+      Check if this is the first time the button is pressed. */
   if (!randomReady && buttonPressed) {
-    // Use the time until the first button press
-    // to initialize the random number generator
+    /* Initialize the random number generator with the number of
+       microseconds between program start and the first button press */
     /* gac:
        In arduino, the `random()` function will return the sequence
        of numbers every time you start your program, unless you call
