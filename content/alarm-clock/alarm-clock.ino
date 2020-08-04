@@ -15,9 +15,9 @@
 const int COLON_PIN = 13;
 const int SPEAKER_PIN = A3;
 
-Button hourButton = Button(A0);
-Button minuteButton = Button(A1);
-Button alarmButton = Button(A2);
+Button hourButton(A0);
+Button minuteButton(A1);
+Button alarmButton(A2);
 
 AlarmTone alarmTone;
 Clock clock;
