@@ -94,6 +94,10 @@ export default function Home(props: IndexProps) {
       <Head>
         <title>Good Arduino Code</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="description"
+          content="Arduino projects with great code, explanations, diagrams and simulation"
+        />
         <meta property="og:title" content="Just Good Arduino Code" />
         <meta
           property="og:description"
