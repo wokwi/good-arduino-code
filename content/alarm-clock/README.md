@@ -42,7 +42,7 @@ The code is divided into several modules:
 | Piezo Buzzer      | 1        | Used for the alarm                    |
 | DS1307 RTC        | 1        | Optional                              |
 
-- You can also use a Common Cathode 7-segment display, just adjust the `DISPLAY_TYPE` constant in [config.h](#source-config_h).
+- You can also use a Common Cathode 7-segment display, just adjust the `DISPLAY_TYPE` constant in [config.h](#source-config_h), and switch to NPN transistors.
 
 To keep the clock hardware down to minimum, the Arduino controls the 7-Segment display directly, using the [SevSeg](https://www.arduinolibraries.info/libraries/sev-seg) library.
 This approach as a downside, however: it uses 12 GPIO pins!
