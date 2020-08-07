@@ -43,11 +43,15 @@ long millisSinceStateChange() {
   return millis() - lastStateChange;
 }
 
+void setColon(bool value) {
+  digitalWrite(COLON_PIN, value ? LOW : HIGH);
+}
+
 void displayTime() {
   DateTime now = clock.now();
   bool blinkState = now.second() % 2 == 0;
   sevseg.setNumber(now.hour() * 100 + now.minute());
-  digitalWrite(COLON_PIN, blinkState ? HIGH : LOW);
+  setColon(blinkState);
 }
 
 void clockState() {
@@ -73,6 +77,7 @@ void clockState() {
 }
 
 void alarmStatusState() {
+  setColon(false);
   sevseg.setChars(clock.alarmEnabled() ? " on" : " off");
   if (millisSinceStateChange() > ALARM_STATUS_DISPLAY_TIME) {
     changeDisplayState(clock.alarmEnabled() ? DisplayAlarmTime : DisplayClock);
