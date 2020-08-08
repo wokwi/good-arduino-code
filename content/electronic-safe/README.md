@@ -13,7 +13,7 @@ the code isn't wiped even when the power goes off.
 
 The code is divided into three modules:
 
-- [sketch.ino](#source-sketch_ino) - Main program code, including the user interface
+- [electronic-safe.ino](#source-electronic_safe_ino) - Main program code, including the user interface
 - [icons.cpp](#source-icons_cpp) - Provides the locked/unlocked icon for the LCD screen
 - [SafeState.cpp](#source-safestate_cpp) - Manages the state of the safe and the secret code, and stores them in the EEPROM memory.
 
