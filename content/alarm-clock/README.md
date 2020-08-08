@@ -52,7 +52,10 @@ _TM1637_, _HT16K33_, or _MAX7219_. In this case, you will need to change the cod
 
 ### Diagram
 
-TODO
+<figure>
+    <img src="images/diagram.png" alt="diagram" style="width: 628px" />
+    <figcaption>Arduino Safe Connection Diagram</figcaption>
+</figure>
 
 ### Pin Connections
 
