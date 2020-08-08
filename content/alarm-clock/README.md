@@ -45,7 +45,7 @@ The code is divided into several modules:
 - You can also use a Common Cathode 7-segment display, just adjust the `DISPLAY_TYPE` constant in [config.h](#source-config_h), and switch to NPN transistors.
 
 To keep the clock hardware down to minimum, the Arduino controls the 7-Segment display directly, using the [SevSeg](https://www.arduinolibraries.info/libraries/sev-seg) library.
-This approach as a downside, however: it uses 12 GPIO pins!
+This approach has a downside, however: it uses 12 GPIO pins!
 
 If you want to save on Arduino pins, you can use a _74HC595_ shift register to cut the pin usage down to 6, or even a 7-Segment display with an integrated controller chip, such as
 _TM1637_, _HT16K33_, or _MAX7219_. In this case, you will need to change the code to use a different display library (_SevSeg_ does not support this case), but this is out of the scope of this project.
