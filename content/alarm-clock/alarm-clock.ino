@@ -241,6 +241,8 @@ void setupSevenSegment() {
 }
 
 void setup() {
+  Serial.begin(115200);
+
   clock.begin();
 
   hourButton.begin();

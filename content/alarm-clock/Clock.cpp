@@ -9,12 +9,35 @@
 #include <Arduino.h>
 #include "Clock.h"
 
+/* gac:start
+   ✅ Define constants instead of using "magic numbers".
+
+   It is much easier to understand `MINUTE` than figuring
+   out what 60000 is.
+
+   The `L` at the end tells the compiler we want a long
+   integer. Otherwise, the number is treated as `int`, and
+   since this number is out of the range for `int`
+   (-32,768 ... 32,767), we'll get an unexpected result:
+   -5536 instead of 60000.
+ */
 #define MINUTE 60 * 1000L /* ms */
 #define TIMESPAN_DAY TimeSpan(1, 0, 0, 0)
+/* gac:end */
 
+/* gac:start
+   The NVRAM is small region of memory on the RTC chip. It
+   lets us store values that will remain even when the power
+   goes off.
+
+   We use the NVRAM to store the alarm state, hour and minute.
+   These constants define where we store these values inside
+   the NVRAM.
+*/
 #define NVRAM_ADDR_ALARM_ENABLED 0
 #define NVRAM_ADDR_ALARM_HOUR    1
 #define NVRAM_ADDR_ALARM_MINUTE  2
+/* gac:end */
 
 Clock::Clock()
   : _alarm_state(ALARM_OFF)
@@ -24,6 +47,15 @@ Clock::Clock()
 }
 
 void Clock::begin() {
+  /* gac:
+     This code compiles differently, accoding to the USE_RTC
+     constant defined in config.h.
+
+     If we have an RTC chip, we'll read the time and alarm
+     configuration for the RTC. Otherwise, we'll just initialize
+     the current time to zero, and the alarm hour to the default
+     as defined in config.h.
+  */
 # if USE_RTC
   if (!_rtc.begin()) {
     Serial.println("Couldn't find RTC");
