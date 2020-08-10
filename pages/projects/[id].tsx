@@ -78,6 +78,7 @@ export default function ProjectPage(props: ProjectPageProps) {
       <Head>
         <title>{props.name} - Good Arduino Code</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content={metaDescription} />
         <meta property="og:title" content={`${props.name} - Good Arduino Code`} />
         <meta
           property="og:description"
