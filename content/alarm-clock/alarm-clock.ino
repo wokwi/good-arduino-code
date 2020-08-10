@@ -142,7 +142,8 @@ void alarmStatusState() {
   setColon(false);
   sevseg.setChars(clock.alarmEnabled() ? " on" : " off");
   if (millisSinceStateChange() > ALARM_STATUS_DISPLAY_TIME) {
-    changeDisplayState(clock.alarmEnabled() ? DisplayAlarmTime : DisplayClock);
+    changeDisplayState(clock.alarmEnabled() ? DisplayAlarmTime
+                       : DisplayClock);
     return;
   }
 }
@@ -151,7 +152,8 @@ void alarmTimeState() {
   DateTime alarm = clock.alarmTime();
   sevseg.setNumber(alarm.hour() * 100 + alarm.minute(), -1);
 
-  if (millisSinceStateChange() > ALARM_HOUR_DISPLAY_TIME || alarmButton.pressed()) {
+  if (millisSinceStateChange() > ALARM_HOUR_DISPLAY_TIME
+      || alarmButton.pressed()) {
     changeDisplayState(DisplayClock);
     return;
   }
