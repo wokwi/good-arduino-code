@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import arduino from 'react-syntax-highlighter/dist/cjs/languages/hljs/arduino';
@@ -59,7 +59,7 @@ export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
 
   const [codeLineHeight, setCodeLineHeight] = useState(0);
   const codeLineOffset = (line: number) => (line - 1) * codeLineHeight;
-  useLayoutEffect(() => {
+  useEffect(() => {
     const measure = () =>
       setCodeLineHeight(
         markersRef.current?.firstElementChild?.getBoundingClientRect()?.height || 0,
