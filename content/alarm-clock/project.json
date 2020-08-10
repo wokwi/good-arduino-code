@@ -2,8 +2,7 @@
   "name": "Alarm Clock",
   "description": "Digital Clock with 7-Segment Display, Alarm, Snooze and RTC",
   "author": "Uri Shaked",
-  "thumbnail": "",
+  "thumbnail": "images/diagram.png",
   "libraries": ["Button", "RTCLib", "SevSeg"],
-  "simulation": "https://wokwi.com/playground/alarm-clock?comments=0",
-  "unlisted": true
+  "simulation": "https://wokwi.com/playground/alarm-clock?comments=0"
 }

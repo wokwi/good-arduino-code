@@ -12,10 +12,16 @@
 #define TONE_TIME 500 /* ms */
 #define TONE_SPACING 100 /* ms */
 
+/* gac:start
+   You can customize the alarm sound by changing the numbers in the array.
+   The numbers represent sound frequencies (in hertz), and is passed to
+   Arduino's `tone()` function.
+*/
 static const uint16_t TONES[] = {
   500,
   800,
 };
+/* gac:end */
 const uint16_t NUM_TONES = sizeof(TONES) / sizeof(TONES[0]);
 
 AlarmTone::AlarmTone()
