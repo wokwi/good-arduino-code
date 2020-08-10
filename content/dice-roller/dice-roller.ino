@@ -49,8 +49,8 @@ void loop() {
      ✅ Give `digitalRead(...)` a meaningful name by storing the result
      it into a variable */
   bool buttonPressed = digitalRead(BUTTON_PIN) == LOW;
-   /* gac:
-      Check if this is the first time the button is pressed. */
+  /* gac:
+     Check if this is the first time the button is pressed. */
   if (!randomReady && buttonPressed) {
     /* Initialize the random number generator with the number of
        microseconds between program start and the first button press */
