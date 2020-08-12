@@ -63,7 +63,7 @@ export function SignupFormMobile() {
             data-element="errors"
             data-group="alert"
           ></ul>
-          <h2>Be notified when good Arduino codes are added</h2>
+          <h2>Be notified when new projects come out:</h2>
           <div data-element="fields" data-stacked="false" className="seva-fields formkit-fields">
             <div className="formkit-field">
               <input
