@@ -53,7 +53,7 @@ SevSeg sevseg;
    2. `DisplayAlarmStatus` - Displaying the alarm status ("on" or "off")
    3. `DisplayAlarmTime` - Setting the alarm time
    4. `DisplayAlarmActive` - Alarm went off
-   5. `DisplaySnooze` - Dislaying a "snoozing alarm" animation
+   5. `DisplaySnooze` - Displaying a "snoozing alarm" animation
 
    We also define a `lastStateChange` variable to keep track of the time
    in each state. This is useful for states like `DisplayAlarmStatus`,
