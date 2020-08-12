@@ -22,6 +22,7 @@ import { projectFileURL, projectImageUrl } from '../../services/urls';
 import { HeadingRenderer } from '../../utils/heading-renderer';
 import { headingToId } from '../../utils/heading-to-id';
 import { extractHeadings } from '../../utils/markdown-utils';
+import { SharingButtons } from '../../components/sharing-buttons';
 
 interface ProjectPageParams extends ParsedUrlQuery {
   id: string;
@@ -106,7 +107,10 @@ export default function ProjectPage(props: ProjectPageProps) {
 
         <article>
           <header>
-            <h1 id="start">{props.name}</h1>
+            <h1 id="start">
+              <span className="article-name">{props.name}</span>
+              <SharingButtons projectId={props.id} />
+            </h1>
           </header>
           <section className="markdown-body">
             <ReactMarkdown
@@ -145,6 +149,9 @@ export default function ProjectPage(props: ProjectPageProps) {
               <AnnotatedSource code={file.code} annotations={file.annotations} />
             </section>
           ))}
+          <div className="sharing-buttons">
+            <SharingButtons projectId={props.id} />
+          </div>
           {props.simulation && (
             <>
               <h2 id="simulation">Simulation</h2>
@@ -194,7 +201,18 @@ export default function ProjectPage(props: ProjectPageProps) {
           width: 100%;
         }
 
+        h1 {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+        }
+
+        .article-name {
+          margin: 0 16px 8px 0;
+        }
+
         .markdown-body,
+        .sharing-buttons,
         h1,
         h2,
         h3 {

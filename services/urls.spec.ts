@@ -1,4 +1,4 @@
-import { projectFileURL, projectImageUrl } from './urls';
+import { projectFileURL, projectImageUrl, projectUrl } from './urls';
 
 let isProduction = false;
 jest.mock('./environment', () => ({
@@ -9,6 +9,12 @@ jest.mock('./environment', () => ({
 
 beforeEach(() => {
   isProduction = false;
+});
+
+describe('projectUrl', () => {
+  it('should return production URL for the project', () => {
+    expect(projectUrl('simon')).toEqual('https://goodarduinocode.com/projects/simon');
+  });
 });
 
 describe('projectFileURL', () => {

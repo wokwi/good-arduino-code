@@ -5,6 +5,10 @@ export interface IImageOptions {
   maxHeight?: number;
 }
 
+export function projectUrl(id: string) {
+  return `https://goodarduinocode.com/projects/${id}`;
+}
+
 export function projectFileURL(id: string, uri: string) {
   if (uri.includes('://') || uri.startsWith('/')) {
     return uri;
