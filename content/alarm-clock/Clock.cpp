@@ -20,7 +20,7 @@
    since this number is out of the range for `int`
    (-32,768 ... 32,767), we'll get an unexpected result:
    -5536 instead of 60000.
- */
+*/
 #define MINUTE 60 * 1000L /* ms */
 #define TIMESPAN_DAY TimeSpan(1, 0, 0, 0)
 /* gac:end */
