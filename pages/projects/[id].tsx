@@ -2,7 +2,7 @@ import { mdiDownload, mdiGithub } from '@mdi/js';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import { AnnotatedSource } from '../../components/annotated-source';
 import { GlobalStyles } from '../../components/global-styles';
@@ -23,6 +23,7 @@ import { HeadingRenderer } from '../../utils/heading-renderer';
 import { headingToId } from '../../utils/heading-to-id';
 import { extractHeadings } from '../../utils/markdown-utils';
 import { SharingButtons } from '../../components/sharing-buttons';
+import { isProduction } from '../../services/environment';
 
 interface ProjectPageParams extends ParsedUrlQuery {
   id: string;
@@ -70,7 +71,7 @@ function getSectionLinks(props: ProjectPageProps) {
   ] as ISideNavLink[];
 }
 
-export default function ProjectPage(props: ProjectPageProps) {
+export function ProjectPage(props: ProjectPageProps) {
   const metaDescription = props.author
     ? `${props.description} by ${props.author}`
     : props.description || '';
@@ -246,6 +247,23 @@ export default function ProjectPage(props: ProjectPageProps) {
       `}</style>
     </div>
   );
+}
+
+export default function ProjectPageWrapper(props: ProjectPageProps) {
+  if (!isProduction) {
+    const [liveProps, setProps] = useState(props);
+    useEffect(() => {
+      const timer = setInterval(async () => {
+        const request = await fetch(`/api/watch-project?project=${liveProps.id}`);
+        const newProps = await request.json();
+        setProps(newProps);
+      }, 100);
+      return () => clearTimeout(timer);
+    });
+    return <ProjectPage {...liveProps} />;
+  } else {
+    return <ProjectPage {...props} />;
+  }
 }
 
 export const getStaticProps: GetStaticProps<ProjectPageProps, ProjectPageParams> = async ({
