@@ -17,9 +17,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader('content-type', 'application/zip');
 
   zip.pipe(res);
+  await promisify(zip.entry).call(zip, null, { name: projectId, type: 'directory' });
   for (const file of await getProjectCode(projectId)) {
     const { code } = extractCodeAnnotations(file.code);
-    await promisify(zip.entry).call(zip, code, { name: file.name });
+    await promisify(zip.entry).call(zip, code, { name: `${projectId}/${file.name}` });
   }
   zip.finalize();
 };
