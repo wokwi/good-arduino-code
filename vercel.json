@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "pages/**": {
+      "includeFiles": "content/**/*.h"
+    }
+  }
+}
