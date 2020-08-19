@@ -125,7 +125,7 @@ export function ProjectPage(props: ProjectPageProps) {
           <h2 id="source-code">Source code</h2>
           <section>
             <LinkIconButton
-              href={`/api/download-project/${props.id}.zip`}
+              href={`/zip/${props.id}.zip`}
               icon={mdiDownload}
               onClick={() =>
                 reportEvent({ action: 'download', category: 'project', label: props.id })
