@@ -1,0 +1,8 @@
+{
+  "name": "Calculator",
+  "description": "Arduino Calculator with decimal number support",
+  "author": "Uri Shaked",
+  "thumbnail": "images/diagram.png",
+  "libraries": ["Keypad", "LiquidCrystal"],
+  "simulation": "https://wokwi.com/playground/calculator?comments=0"
+}
