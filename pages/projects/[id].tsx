@@ -88,7 +88,7 @@ export function ProjectPage(props: ProjectPageProps) {
         />
         <meta
           property="og:image"
-          content={`https://goodarduinocode.com/api/social-image/${props.id}.png?ts=${props.lastModified}`}
+          content={`https://thumbs.wokwi.com/api/render.png?service=goodarduinocode&path=/projects/${props.id}/social-preview?ts=${props.lastModified}`}
         />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
