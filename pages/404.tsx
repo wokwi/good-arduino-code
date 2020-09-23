@@ -13,12 +13,12 @@ export default function Custom404() {
             Back to home page
           </a>
         </div>
-        <img className="magnifying-glass" src="images/arduino-uno.svg"></img>
+        <img className="magnifying-glass" src="images/arduino-uno.svg" alt="arduino uno" />
         <style jsx>{`
           .custom-404 {
             display: grid;
             place-content: center;
-            height: 88vh;
+            height: 85vh;
             background: #02111c;
           }
           .magnifying-glass {
