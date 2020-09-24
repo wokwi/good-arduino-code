@@ -1,9 +1,26 @@
 import { Header } from '../components/header';
 import React from 'react';
+import Head from 'next/head';
 
 export default function Custom404() {
   return (
     <div>
+      <Head>
+        <title>It's Four-oh-Four, Fella! GoodArduinoCode.com</title>
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content="We couldn't find that page. We really tried hard!" />
+        <meta property="og:title" content="It's Four-oh-Four, Fella! GoodArduinoCode.com" />
+        <meta
+          property="og:description"
+          content="We couldn't find that page. We really tried hard!"
+        />
+        <meta property="og:image" content="https://goodarduinocode.com/images/social-cover.jpg" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@WokwiMakes" />
+      </Head>
       <Header />
       <div className="custom-404">
         <div className="text">
