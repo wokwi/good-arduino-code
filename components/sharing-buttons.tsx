@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import {
   FacebookIcon,
   FacebookShareButton,
@@ -9,16 +10,12 @@ import {
   TwitterShareButton,
 } from 'react-share';
 import { reportEvent } from '../services/analytics';
-import { projectUrl } from '../services/urls';
 
-export interface ISharingButtonProps {
-  projectId: string;
-}
-
-export function SharingButtons({ projectId }: ISharingButtonProps) {
-  const url = projectUrl(projectId);
+export function SharingButtons() {
+  const router = useRouter();
+  const url = 'https://goodarduinocode.com' + router.pathname;
   const shareEvent = (network: string) => () => {
-    reportEvent({ action: network, category: 'share', label: projectId });
+    reportEvent({ action: network, category: 'share', label: router.pathname });
   };
   return (
     <span className="social-icons">
