@@ -3,13 +3,14 @@ import Head from 'next/head';
 import { CodeElement } from '../components/code-element';
 import { GlobalStyles } from '../components/global-styles';
 import { Header } from '../components/header';
+import { PreElement } from '../components/pre-element';
 import { SharingButtons } from '../components/sharing-buttons';
 import styles from './guide.module.css';
 import { ILayoutProps } from './layout';
 
 export default function GuidesPage({ children, frontMatter }: ILayoutProps) {
   return (
-    <MDXProvider components={{ code: CodeElement }}>
+    <MDXProvider components={{ pre: PreElement, code: CodeElement }}>
       <Head>
         <title>{frontMatter.title}</title>
       </Head>

@@ -9,8 +9,8 @@ export interface ICodeElementProps {
 export function CodeElement({ children }: ICodeElementProps) {
   const { code, annotations } = useMemo(() => extractCodeAnnotations(children), [children]);
   return (
-    <code>
+    <div style={{ fontSize: '17px' }}>
       <AnnotatedSource code={code} annotations={annotations} />
-    </code>
+    </div>
   );
 }

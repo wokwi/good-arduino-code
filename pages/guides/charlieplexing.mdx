@@ -199,8 +199,9 @@ void loop() {
   /* gac: orward bias the LED(2,3), turning it ON. */
   digitalWrite(2, LOW);
   digitalWrite(3, HIGH);
-  /* Wait for a duration of SCAN_DELAY before changing the LED states */
-  delay(SCAN_DELAY); //amount of time the LED must be ON
+
+  // Keep LED on for SCAN_DELAY microseconds:
+  delay(SCAN_DELAY);
 
   /* gac:
     Configure Arduino pins 2, 3 as `INPUT`.
