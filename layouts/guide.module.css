@@ -97,7 +97,19 @@
 }
 
 .guide figure {
+  margin: 0.8em 0 2.3em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.guide figcaption {
+  color: #5d7179;
+  font-size: 75%;
+  line-height: 1.5em;
   text-align: center;
+  max-width: 1040px;
 }
 
 .guide img,
