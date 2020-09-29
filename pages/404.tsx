@@ -7,7 +7,6 @@ export default function Custom404() {
     <div>
       <Head>
         <title>It's Four-oh-Four, Fella! GoodArduinoCode.com</title>
-        <link rel="icon" href="/favicon.ico" />
         <meta name="description" content="We couldn't find that page. We really tried hard!" />
         <meta property="og:title" content="It's Four-oh-Four, Fella! GoodArduinoCode.com" />
         <meta

@@ -7,7 +7,7 @@ export default function MyApp({ Component, pageProps }: AppPropsType) {
   return (
     <>
       <Head>
-        <link rel="icon" type="image/png" href="favicon.png" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
       </Head>
       <Component {...pageProps} />
       <GoogleAnalyticsScript />
