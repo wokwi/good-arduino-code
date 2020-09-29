@@ -138,7 +138,7 @@ export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
           }}
         >
           <ReactMarkdown
-            source={activeAnnotation.value}
+            source={activeAnnotation.value?.replace(/<br\s*\/?>\s*/gi, '  \n')}
             linkTarget={(url) => (url.startsWith('#') ? '' : '_blank')}
           />
         </div>
