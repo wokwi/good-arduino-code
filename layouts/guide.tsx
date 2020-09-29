@@ -1,5 +1,6 @@
 import { MDXProvider } from '@mdx-js/react';
 import Head from 'next/head';
+import { AutolinkedHeading } from '../components/autolinked-heading';
 import { CodeElement } from '../components/code-element';
 import { GlobalStyles } from '../components/global-styles';
 import { Header } from '../components/header';
@@ -8,9 +9,22 @@ import { SharingButtons } from '../components/sharing-buttons';
 import styles from './guide.module.css';
 import { ILayoutProps } from './layout';
 
+/* eslint-disable react/display-name */
+
 export default function GuidesPage({ children, frontMatter }: ILayoutProps) {
   return (
-    <MDXProvider components={{ pre: PreElement, code: CodeElement }}>
+    <MDXProvider
+      components={{
+        pre: PreElement,
+        code: CodeElement,
+        h1: (props) => <AutolinkedHeading size="h1" {...props} />,
+        h2: (props) => <AutolinkedHeading size="h2" {...props} />,
+        h3: (props) => <AutolinkedHeading size="h3" {...props} />,
+        h4: (props) => <AutolinkedHeading size="h4" {...props} />,
+        h5: (props) => <AutolinkedHeading size="h5" {...props} />,
+        h6: (props) => <AutolinkedHeading size="h6" {...props} />,
+      }}
+    >
       <Head>
         <title>{frontMatter.title}</title>
         <meta name="description" content={frontMatter.description || ''} />
