@@ -1,0 +1,223 @@
+---
+layout: 'guide'
+title: 'Charlieplexing Arduino: Control 72 LEDs with just 9 Arduino Pins - The complete guide'
+description: 'A step-by-step tutorial with annotated code examples, Schematics, illustrations to help you master Charlieplexing 🤓'
+slug: 'charlieplexing-complete-guide-72-leds-arduino'
+---
+
+## Introduction
+
+Blinking an LED 💡 using an Arduino is the “Hello World” of electronics. There are many ways to blink an LED using Arduino - [5 Ways to Blink an LED with Arduino](https://blog.wokwi.com/5-ways-to-blink-an-led-with-arduino/) describes at least 5 ways of blinking an LED.
+
+Let's take a look at a basic example: 👇
+
+```arduino
+void setup() {
+  /* gac: LED_BUILTIN maps to Arduino Uno pin 13 */
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop() {
+  /* gac: Turns the LED on */
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(1000);
+  /* gac: Turns the LED off */
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(1000);
+}
+```
+
+The code shown above will blink an LED that is connected to Arduino pin 13. But often we
+need to drive more than one LED.
+
+For example, if we are driving three LEDs for a traffic light 🚥 project, it is simple
+and straightforward to use three Arduino port pins. But what happens if we want to use
+a large number of LEDS, such as a 5x5 LED matrix?
+
+Arduino only has 20 GPIO pins that we can use, so using one pin per LED won't do the
+trick for us. That's a shame, because a 5x5 LED matrix can display numbers, symbols
+and letters and could be a great addition to our next Arduino project.
+
+Fortunately, there are other, more pin-efficient ways to connect LEDs to Arduino.
+Charlieplexing is one of the less-known methods to solve this problem: it enables
+controlling many LEDs with just a few Arduino pins!
+
+You are going to learn how it works. By the end of this article, you will have a
+clear understanding of how Charlieplexing works, as well as how to code and wire
+the hardware with full confidence 😎.
+
+## LED There be Light 💡
+
+A standard LED has two connections: Anode (+) and Cathode (-). You can make it
+emit light by applying positive voltage to the LED's Anode, and negative voltage
+to the Cathode.
+
+The amount voltage you need varies between LED of different colors and types,
+and is called "forward voltage". For standard 5MM red LEDs, the forward voltage
+will be between 1.6 volts to 2 volts.
+
+The LEDs also have a certain current limit (usually around 20mA). Hence, you should
+use a resistor to make sure only the desired amount of current flows through the
+LED (or else, it may suffer and die!).
+
+## Charlieplexing Makes it Possible?
+
+With Charlieplexing, we can drive up to 6 LEDs using just three pins. How does that
+work? In short, we're taking advantage of a limitation of the human eye: when
+multiple LEDs are sequentially lit one after the other rapidly, it will appear as
+all of them are lit at the same time.
+
+This is called "[Persistence of Vision](https://en.wikipedia.org/wiki/Persistence_of_vision)"
+(PoV in short).
+
+Here are some popular examples of what you can create using this technique
+(and Charlieplexing):
+
+1. Your own matrix display driver
+2. Rolling display board
+3. Clock with 60 LEDs around the clock to tell the hour, minute and second hands
+4. Chessboard which is bottom lit – 64 LEDs
+5. LED Cubes – beatiful 3D cube made out of 8x8x8 LEDs (512 in total)
+
+## How many LEDs can you drive with a given number of pins?
+
+Short answer: many!
+
+For an exact number, check this table out:
+
+| Number of Pins | How many LEDs can you drive? |
+| -------------- | ---------------------------- |
+| 2              | 2                            |
+| 3              | 6                            |
+| 4              | 12                           |
+| 5              | 20                           |
+| 6              | 30                           |
+| 7              | 42                           |
+| 8              | 56                           |
+| 9              | 72                           |
+| **n**          | **n \* (n-1)**               |
+
+In general, you can drive `n*(n-1)` LEDs using `n` pins. This is the number of ways
+of selecting `2` items out of `n` different items. For more info about the math, take a
+look at the [Wikipedia article](https://en.wikipedia.org/wiki/Charlieplexing#Traditional_multiplexing).
+
+---
+
+You are still here? Great, let's see how Charlieplexing is done in practice. We'll start
+from a simple Arduino design with two-port pins and work our way up to nine-port pins!
+
+The best way to learn is by doing. Hence, we will use [Wokwi's Online Arduino Simulator](https://wokwi.com/),
+meaning you will be able to run all the examples in your browser.
+
+Why not just build the circuit with real LEDs? Trust me, you don't want to sit for hours
+checking the wiring for 72 LEDs and scratching your head, just to figure out that you
+have plugged some LEDs in the wrong direction or have some loose wires.
+
+When learning (and prototyping), I believe it's best to isolate the software from the
+hardware. Thus, the simulation environment gives you a working hardware, so you can
+focus on learning the concept and reduce the risk of issues.
+
+Once you understood how Charlieplexing works and have the code running in the simulator
+and doing once you want, then yes, I encourage you to go ahead and build the hardware.
+This way, you can minimize frustration and maximize fun! 😁
+
+As you follow the rest of the tutorial, you'll be able to run the code on Wokwi's
+Arduino playground with simulated LEDs, verify the code, build confidence, and when
+you are ready, also build the physical circuit with the tested-and-tried software.
+Let's get going!
+
+## Light'em Up!🏇
+
+All our examples will follow this principle: the common goal will be to be able to
+individually control each LED, turn it on for a moment, and then turn it off.
+Eventually, code should cycle through all the LEDs.
+
+### Case 1: Charlieplexing 2 LEDs with 2 Arduino pins
+
+We'll start with the most basic example: just 2 LEDs.
+
+The Cathode of the LED<sub>(2,3)</sub> is connected to Arduino pin 2 and Anode of the
+LED is connected to Arduino pin 3.
+
+Similarly, The Cathode of the LED<sub>(3,2)</sub> is connected to Arduino Pin 3 and
+Anode of the LED is connected to Arduino Pin 2.
+
+TODO ![Charlieplexing using Arduino - 2 LEDs](https://link)
+
+#### Circuit diagram
+
+TODO ![Charlieplexing using Arduino - Basics]()
+
+TODO ![Arduino Pins used for Charlieplexing... in this article]()
+
+Here is what our code will be doing:
+
+1. Set pin 2 as OUTPUT pin
+2. Set pin 3 as OUTPUT pin
+3. To turn LED(2,3) ON
+   a. Drive logic LOW on pin 2
+   b. Drive logic HIGH on pin 3
+4. To turn LED(3,2) ON
+   a. Drive logic HIGH on pin 2
+   b. Drive logic LOW on pin 3
+5. Repeat steps 3-4 endlessly
+
+TODO ![Port pin 2 and 3 status for driving two LEDs using two Arduino Pins]()
+
+**Tips**: The LEDs need to have a similar forward voltage drop so as to be able to
+drive all of the LEDs with equal brightness. If you have LEDs of same color and type,
+it should do the trick 😉 . Also, when building this circuit, you'll need one current
+limiting resistor for each used Arduino pin.
+
+You can have a look at the screenshot of the simulation taken from
+[Wokwi Arduino playground](https://wokwi.com/playground/charlieplexing):
+
+TODO ![Charlieplexing 2 LEDs using two Arduino Pins]()
+
+#### Arduino Code: Basic 2 LED control with Charlieplexing
+
+You can have a look at the below 👇 Arduino code used in the simulation. You can use
+your mouse to hover over the green lines to read additional explanations.
+
+```
+/**
+   Charlieplexed LED Matrix Scanning demo with two Port Pins to drive two LEDs.
+
+   Copyright (C) 2019, Uri Shaked. Released under the MIT license.
+*/
+/* gac: SCAN DELAY is the amount of time each LED will be ON */
+#define SCAN_DELAY 50
+
+void setup() {
+}
+
+void loop() {
+  /* gac: We have to configure the pins as `OUTPUT` before we can drive
+     them `HIGH` or `LOW` */
+  pinMode(2, OUTPUT);
+  pinMode(3, OUTPUT);
+  /* gac: orward bias the LED(2,3), turning it ON. */
+  digitalWrite(2, LOW);
+  digitalWrite(3, HIGH);
+  /* Wait for a duration of SCAN_DELAY before changing the LED states */
+  delay(SCAN_DELAY); //amount of time the LED must be ON
+
+  /* gac:
+    Configure Arduino pins 2, 3 as `INPUT`.
+
+    This causes the LED to turn off since both pin will be at high impedance when
+    configured as input, and no current will flow through the LEDs. */
+  pinMode(2, INPUT);
+  pinMode(3, INPUT);
+
+  /* gac: Turn on LED(3,2) in a similar fashion */
+  pinMode(2, OUTPUT);
+  pinMode(3, OUTPUT);
+  digitalWrite(2, HIGH);
+  digitalWrite(3, LOW);
+  delay(SCAN_DELAY);
+  /* gac: Set pins to `INPUT` to turn the LEDs off */
+  pinMode(2, INPUT);
+  pinMode(3, INPUT);
+}
+```

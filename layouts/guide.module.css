@@ -1,0 +1,21 @@
+.guide {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  line-height: 1.6em;
+  margin: 32px auto 0;
+  max-width: 630px;
+}
+
+.guide h1 {
+  border-bottom: none;
+}
+
+.guide h1,
+.guide h2,
+.guide h3,
+.guide h4,
+.guide h5,
+.guide h6 {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+    Open Sans, Helvetica Neue, sans-serif;
+}
