@@ -95,3 +95,12 @@
 .guide table tr:nth-child(2n) {
   background-color: #f6f8fa;
 }
+
+.guide figure {
+  text-align: center;
+}
+
+.guide img,
+.guide iframe {
+  max-width: 100%;
+}
