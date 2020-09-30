@@ -4,18 +4,25 @@ import { WowkiLED } from './wokwi-led';
 interface ICharlieplexingMatrixProps {
   size: number;
   speed?: number;
+  animate?: boolean;
 }
 
-export function CharlieplexingMatrix({ size, speed = 500 }: ICharlieplexingMatrixProps) {
+export function CharlieplexingMatrix({
+  size,
+  speed = 500,
+  animate = true,
+}: ICharlieplexingMatrixProps) {
   const [activeLed, setActiveLed] = useState(0);
   const nextLED = () => {
     setActiveLed((value) => (value + 1) % (size * (size - 1)));
   };
 
   useEffect(() => {
-    const interval = setInterval(nextLED, speed);
-    return () => clearInterval(interval);
-  }, []);
+    if (animate) {
+      const interval = setInterval(nextLED, speed);
+      return () => clearInterval(interval);
+    }
+  }, [animate]);
 
   const result: React.ReactNodeArray = [];
   let index = 0;
@@ -27,8 +34,8 @@ export function CharlieplexingMatrix({ size, speed = 500 }: ICharlieplexingMatri
             color="white"
             lightColor="red"
             label={`${row}\u2003${col}`}
-            value={true}
-            brightness={activeLed === index++ ? 1 : Number.EPSILON}
+            value={animate}
+            brightness={activeLed === index++ ? 1 : 0}
             transition={speed > 300}
           />,
         );
