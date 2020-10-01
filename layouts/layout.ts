@@ -3,5 +3,6 @@ export interface ILayoutProps {
   frontMatter: {
     title: string;
     description?: string;
+    ogImage?: string;
   };
 }

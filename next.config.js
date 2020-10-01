@@ -13,6 +13,11 @@ module.exports = withOptimizedImages(
           destination: `/`,
           permanent: false,
         },
+        {
+          source: '/guides',
+          destination: '/',
+          permanent: false,
+        },
       ];
     },
   }),

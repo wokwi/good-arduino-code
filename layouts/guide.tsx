@@ -28,12 +28,17 @@ export default function GuidesPage({ children, frontMatter }: ILayoutProps) {
       <Head>
         <title>{frontMatter.title}</title>
         <meta name="description" content={frontMatter.description || ''} />
+        <meta property="og:site_name" content="Good Arduino Code" />
         <meta property="og:title" content={frontMatter.title} />
         <meta property="og:description" content={frontMatter.description || ''} />
-        <meta property="og:image" content="https://goodarduinocode.com/images/social-cover.jpg" />
+        <meta
+          property="og:image"
+          content={frontMatter.ogImage || 'https://goodarduinocode.com/images/social-cover.jpg'}
+        />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
+        <meta property="article:publisher" content="https://www.facebook.com/Wokwi" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@WokwiMakes" />
       </Head>
