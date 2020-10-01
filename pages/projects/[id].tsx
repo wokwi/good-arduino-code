@@ -109,7 +109,7 @@ export function ProjectPage(props: ProjectPageProps) {
           <header>
             <h1 id="start">
               <span className="article-name">{props.name}</span>
-              <SharingButtons projectId={props.id} />
+              <SharingButtons />
             </h1>
           </header>
           <section className="markdown-body">
@@ -150,7 +150,7 @@ export function ProjectPage(props: ProjectPageProps) {
             </section>
           ))}
           <div className="sharing-buttons">
-            <SharingButtons projectId={props.id} />
+            <SharingButtons />
           </div>
           {props.simulation && (
             <>

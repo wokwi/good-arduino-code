@@ -5,7 +5,8 @@
     "editorconfig.editorconfig",
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
-    "blanu.vscode-styled-jsx"
+    "blanu.vscode-styled-jsx",
+    "silvenon.mdx"
   ],
 
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.

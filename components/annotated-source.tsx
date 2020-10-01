@@ -138,7 +138,7 @@ export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
           }}
         >
           <ReactMarkdown
-            source={activeAnnotation.value}
+            source={activeAnnotation.value?.replace(/<br\s*\/?>\s*/gi, '  \n')}
             linkTarget={(url) => (url.startsWith('#') ? '' : '_blank')}
           />
         </div>
@@ -155,10 +155,14 @@ export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
           width: 8px;
         }
 
-        :global(.marker) {
+        .code-box :global(.marker) {
           position: relative;
           width: 4px;
           background: #00ffc3;
+        }
+
+        .code-box :global(pre) {
+          position: relative;
         }
 
         .highlight {
@@ -166,17 +170,17 @@ export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
           background: #00ffc3;
           width: 100%;
           transition: width 0.7s;
-          z-index: -1;
         }
 
         .mask {
           opacity: 0;
           position: absolute;
-          background: white;
+          background: var(--annotation-mask-color, white);
           width: 100%;
           top: 0;
           pointer-events: none;
         }
+
         .mask.mask-active {
           opacity: 0.6;
           transition: opacity 1s;
@@ -193,6 +197,7 @@ export function AnnotatedSource({ code, annotations }: IAnnotatedSourceProps) {
         .annotation-info :global(p:first-child) {
           margin-top: 0;
         }
+
         .annotation-info :global(p:last-child) {
           margin-bottom: 0;
         }
