@@ -26,6 +26,7 @@ export function CharlieplexingMatrix({
 
   const result: React.ReactNodeArray = [];
   let index = 0;
+  let key = 0;
   for (let row = 2; row < 2 + size; row++) {
     for (let col = 2; col < 2 + size; col++) {
       if (col !== row) {
@@ -35,13 +36,14 @@ export function CharlieplexingMatrix({
             lightColor="red"
             label={`${row}\u2003${col}`}
             value={animate}
+            key={key++}
             brightness={activeLed === index++ ? 1 : 0}
             transition={speed > 300}
           />,
         );
       }
     }
-    result.push(<br />);
+    result.push(<br key={key++} />);
   }
   return <span style={{ display: 'inline' }}>{result}</span>;
 }
