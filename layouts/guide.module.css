@@ -5,7 +5,13 @@
   font-size: 20px;
   line-height: 1.6em;
   margin: 32px auto 0;
-  max-width: 630px;
+  padding: 0 8px;
+  max-width: 820px;
+}
+
+.topBar {
+  display: flex;
+  justify-content: space-between;
 }
 
 .guide a {

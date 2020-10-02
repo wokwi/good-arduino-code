@@ -1,5 +1,13 @@
+export interface IReadingTimeResult {
+  text: string;
+  minutes: number;
+  time: number;
+  words: number;
+}
+
 export interface IGuideMetadata {
   title: string;
+  readingTime: IReadingTimeResult;
   shortTitle?: string;
   description?: string;
   thumbnail?: string;

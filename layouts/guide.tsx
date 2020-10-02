@@ -57,7 +57,10 @@ export default function GuidesPage({ children, frontMatter }: ILayoutProps) {
       <Header />
       <article className={styles.guide}>
         <h1>{frontMatter.title}</h1>
-        <SharingButtons />
+        <div className={styles.topBar}>
+          {frontMatter.readingTime.text}
+          <SharingButtons />
+        </div>
         {children}
         <SharingButtons />
       </article>
