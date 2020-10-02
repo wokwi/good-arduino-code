@@ -1,8 +1,12 @@
+export interface IGuideMetadata {
+  title: string;
+  shortTitle?: string;
+  description?: string;
+  thumbnail?: string;
+  ogImage?: string;
+}
+
 export interface ILayoutProps {
   children: React.ReactNode;
-  frontMatter: {
-    title: string;
-    description?: string;
-    ogImage?: string;
-  };
+  frontMatter: IGuideMetadata;
 }

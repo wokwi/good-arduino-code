@@ -1,5 +1,7 @@
+import { GuidesThumbnail } from '@/components/guides-thumbnail';
 import { MDXProvider } from '@mdx-js/react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { AutolinkedHeading } from '../components/autolinked-heading';
 import { CodeElement } from '../components/code-element';
 import { GlobalStyles } from '../components/global-styles';
@@ -12,6 +14,16 @@ import { ILayoutProps } from './layout';
 /* eslint-disable react/display-name */
 
 export default function GuidesPage({ children, frontMatter }: ILayoutProps) {
+  const router = useRouter();
+
+  if (router.query.thumb) {
+    return <GuidesThumbnail frontMatter={frontMatter} />;
+  }
+
+  const ogImage =
+    frontMatter.ogImage ??
+    `https://thumbs.wokwi.com/api/render.png?service=goodarduinocode&path=/${router.pathname}?thumb=1`;
+
   return (
     <MDXProvider
       components={{
@@ -31,10 +43,7 @@ export default function GuidesPage({ children, frontMatter }: ILayoutProps) {
         <meta property="og:site_name" content="Good Arduino Code" />
         <meta property="og:title" content={frontMatter.title} />
         <meta property="og:description" content={frontMatter.description || ''} />
-        <meta
-          property="og:image"
-          content={frontMatter.ogImage || 'https://goodarduinocode.com/images/social-cover.jpg'}
-        />
+        <meta property="og:image" content={ogImage} />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
