@@ -22,7 +22,9 @@ export default function GuidesPage({ children, frontMatter }: ILayoutProps) {
 
   const ogImage =
     frontMatter.ogImage ??
-    `https://thumbs.wokwi.com/api/render.png?service=goodarduinocode&path=/${router.pathname}?thumb=1`;
+    `https://thumbs.wokwi.com/api/render.png?service=goodarduinocode&path=${encodeURIComponent(
+      router.pathname,
+    )}?thumb=1`;
 
   return (
     <MDXProvider
