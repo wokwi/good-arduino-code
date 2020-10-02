@@ -38,10 +38,10 @@ need to drive more than one LED.
 
 For example, if we are driving three LEDs for a traffic light 🚥 project, it is simple
 and straightforward to use three Arduino port pins. But what happens if we want to use
-a large number of LEDS, such as a 5x5 LED matrix?
+a large number of LEDs, such as a 5x5 LED matrix?
 
 Arduino only has 20 GPIO pins that we can use, so using one pin per LED won't do the
-trick for us. That's a shame, because a 5x5 LED matrix can display numbers, symbols
+trick for us. That's a shame because a 5x5 LED matrix can display numbers, symbols
 and letters and could be a great addition to our next Arduino project.
 
 Fortunately, there are other, more pin-efficient ways to connect LEDs to Arduino.
@@ -59,7 +59,7 @@ emit light by applying positive voltage to the LED's Anode, and negative voltage
 to the Cathode.
 
 The amount voltage you need varies between LED of different colors and types,
-and is called "forward voltage". For standard 5MM red LEDs, the forward voltage
+and is called "forward voltage". For standard 5mm red LEDs, the forward voltage
 will be between 1.6 volts to 2 volts.
 
 The LEDs also have a certain current limit (usually around 20mA). Hence, you should
@@ -83,7 +83,7 @@ Here are some popular examples of what you can create using this technique
 2. Rolling display board
 3. Clock with 60 LEDs around the clock to tell the hour, minute and second hands
 4. Chessboard which is bottom lit – 64 LEDs
-5. LED Cubes – beatiful 3D cube made out of 8x8x8 LEDs (512 in total)
+5. LED Cubes – beautiful 3D cube made out of 8x8x8 LEDs (512 in total)
 
 ## How many LEDs can you drive with a given number of pins?
 
@@ -120,12 +120,12 @@ checking the wiring for 72 LEDs and scratching your head, just to figure out tha
 have plugged some LEDs in the wrong direction or have some loose wires.
 
 When learning (and prototyping), I believe it's best to isolate the software from the
-hardware. Thus, the simulation environment gives you a working hardware, so you can
+hardware. Thus, the simulation environment gives you working hardware, so you can
 focus on learning the concept and reduce the risk of issues.
 
 Once you understood how Charlieplexing works and have the code running in the simulator
 and doing once you want, then yes, I encourage you to go ahead and build the hardware.
-This way, you can minimize frustration and maximize fun! 😁
+This way, you can minimize frustration and maximize the fun! 😁
 
 As you follow the rest of the tutorial, you'll be able to run the code on Wokwi's
 Arduino playground with simulated LEDs, verify the code, build confidence, and when
@@ -189,8 +189,8 @@ Here is what our code will be doing:
 </figure>
 
 
-**Tips**: The LEDs need to have a similar forward voltage drop so as to be able to
-drive all of the LEDs with equal brightness. If you have LEDs of same color and type,
+**Tips**: The LEDs need to have a similar forward voltage drop to be able to
+drive all of the LEDs with equal brightness. If you have LEDs of the same color and type,
 it should do the trick 😉 . Also, when building this circuit, you'll need one current
 limiting resistor for each used Arduino pin.
 
@@ -207,7 +207,7 @@ You can have a look at the output of the simulation taken from
 #### Arduino Code: Basic 2 LED control with Charlieplexing
 
 This is the code we ran in the simulation. The green markers explain more
-about the code - move your mouse over those lines (on tap them) to see
+about the code - move your mouse over those lines (or tap them) to see
 the extra information:
 
 <figure>
@@ -230,13 +230,13 @@ void loop() {
   digitalWrite(2, LOW);
   digitalWrite(3, HIGH);
 
-  // Keep LED on for SCAN_DELAY microseconds:
+  // Keep LED on for SCAN_DELAY milliseconds:
   delay(SCAN_DELAY);
 
   /* gac:
     Configure Arduino pins 2, 3 as `INPUT`.
 
-    This causes the LED to turn off since both pin will be at high impedance when
+    This causes the LED to turn off since both pins will be at high impedance when
     configured as input, and no current will flow through the LEDs. */
   pinMode(2, INPUT);
   pinMode(3, INPUT);
@@ -278,7 +278,7 @@ Now, let's look at the generalized version of how we can control Charlieplexed L
 3. Turning off LED(x,y): configure pins x and y as `INPUT`.
 
 In the previous code example, we tried to keep the code simple and easy to understand.
-The downside is that you cannot eaisly expand the code for three (or more) pins.
+The downside is that you cannot easily expand the code for three (or more) pins.
 
 So now, we're going to rewrite the code. It'll still do the same, but make it easier
 for us to extend later:
@@ -308,7 +308,7 @@ void loop() {
     In the second iteration of inner for-loop, LEDS[j] will be 3.
     The `if` condition will pass.
 
-    Since, there are only two port pins, go through the iterations manually to see the logic by yourself.
+    Since there are only two port pins, go through the iterations manually to see the logic by yourself.
     you can leave a comment if there is need for more clarity
   */
   for (int i = 0; i < LED_COUNT; i++) {
@@ -357,7 +357,7 @@ And the 6 LEDs arranged as follows:
 <figure>
 
 ```
-/* Charlieplexing example: 3 pins driving 6 LEDS. */
+/* Charlieplexing example: 3 pins driving 6 LEDs. */
 
 #define SCAN_DELAY 500
 
@@ -427,7 +427,7 @@ You have 12 LEDs in this case
 <figure>
 
 ```
-/* Charlieplexing example: 12 pins driving 4 LEDS. */
+/* Charlieplexing example: 4 pins driving 12 LEDs. */
 
 #define SCAN_DELAY 500
 
@@ -490,7 +490,7 @@ You have 20 LEDs in this case:
 <figure>
 
 ```
-/* Charlieplexing example: 5 pins driving 20 LEDS. */
+/* Charlieplexing example: 5 pins driving 20 LEDs. */
 
 #define SCAN_DELAY 500
 
@@ -587,7 +587,7 @@ pin down the road.
 </figure>
 
 56 LEDs for your pleasure below. We made the animation a bit faster now, otherwise
-it'd be to boring ;-)
+it'd be too boring ;-)
 
 <figure>
   <CharlieplexingMatrix size={8} speed={100} />
@@ -705,15 +705,15 @@ In fact, by changing the code a little bit and adding an `if` condition, we coul
 display any pattern you want. Check out the explanation in the green marker above
 for more information.
 
-## When to use Charlieplexing ?
+## When to use Charlieplexing?
 
 1. Charlieplexing is best suited where you need to drive only a few LEDs at a time
 2. You can display almost any pattern by quickly turning the LEDs on and off, but your MCU
    will be working hard.
 2. The brightness of the LED may go down or become uneven when we are driving many LEDs at the same time
 3. If the leakage current of the MCU is high, the LEDs might still be lit (poorly, but still visible in the dark)
-   when the pins are configured as input. Also, beware of enabling the built-in Pull-up / Pull-down resistors!
-4. Debugging the hardware and wiring gets really clumsy as the number of LEDs grow
+   when the pins are configured as an input. Also, beware of enabling the built-in Pull-up / Pull-down resistors!
+4. Debugging the hardware and wiring gets really clumsy as the number of LEDs grows
 5. Instead of Charlieplexing, you can use external shift registers/multiplexers. The code will be simpler,
    the connections will be more straightforward, but you'd need these extra hardware parts.
 
