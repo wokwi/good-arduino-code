@@ -607,7 +607,7 @@ You've made it to the last example! Actually, I was too lazy to draw the connect
 You have 72 LEDs in this case:
 
 <figure>
-  <CharlieplexingMatrix size={9} speed={5} />
+  <CharlieplexingMatrix size={9} value={true} brightness={0.2} />
   <figcaption>
     Driving 72 LEDs using 9 Arduino Pins - Charlieplexing
   </figcaption>
@@ -615,12 +615,19 @@ You have 72 LEDs in this case:
 
 #### Arduino code
 
+Did you notice something different about the LEDs above? It seems like they are
+all on even though we're lighting them up one at a time, just as we did before.
+
+So what's the trick?
+
 <figure>
 
 ```
 /* Charlieplexing example: 9 pins driving 72 LEDs. */
 
-#define SCAN_DELAY 5
+/* gac: By using a low scan delay (1 ms in this case), we're creating the illusion that the
+   LEDs are all lit at once. Even though we still light them just one at a time! */
+#define SCAN_DELAY 1
 
 byte LEDS[] = { 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 const byte LED_COUNT = sizeof(LEDS);
@@ -646,6 +653,57 @@ void loop() {
 ```
   <figcaption>How to drive 72 LEDs using 9 Arduino Pins - Charlieplexing</figcaption>
 </figure>
+
+A side effect of this method is that the LEDs will be much dimmer. In fact, each LED is
+lit only 1/72 of the time. The solution is simply to light one row at a time, Instead
+of one LED at the time. This way, each LED will get power for ~1/9 of the time:
+
+<figure>
+
+```
+/* Charlieplexing example: 9 pins driving 72 LEDs with row-scanning. */
+
+#define SCAN_DELAY 1
+
+byte LEDS[] = { 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+const byte LED_COUNT = sizeof(LEDS);
+
+void setup() {
+}
+
+void loop() {
+  for (int i = 0; i < LED_COUNT; i++) {
+    pinMode(LEDS[i], OUTPUT);
+    digitalWrite(LEDS[i], LOW);
+    for (int j = 0; j < LED_COUNT; j++) {
+      if (i != j) {
+/* gac:start
+   if you wanted just some specific LEDs to be on, we'd need to add another condition
+   here that will only drive the pin HIGH for LED(i,j) when we on it to be on.
+
+   We use `digitalWrite()` before `pinMode()` here to avoid an intermediate state where
+   the pin is set both to `OUTPUT` and `LOW`. Otherwise, some current may flow from
+   other `HIGH` pins to this pin, briefly lighting up LEDs we didn't want to.
+*/
+        digitalWrite(LEDS[j], HIGH);
+        pinMode(LEDS[j], OUTPUT);
+/* gac:end */
+      }
+    }
+    delay(SCAN_DELAY);
+    for (int j = 0; j < LED_COUNT; j++) {
+      digitalWrite(LEDS[i], LOW);
+      pinMode(LEDS[j], INPUT);
+    }
+  }
+}
+```
+  <figcaption>More efficient Charlieplexing: row-scanning</figcaption>
+</figure>
+
+In fact, by changing the code a little bit and adding an `if` condition, we could
+display any pattern you want. Check out the explanation in the green marker above
+for more information.
 
 ## When to use Charlieplexing ?
 

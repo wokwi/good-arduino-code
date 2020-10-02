@@ -5,16 +5,20 @@ interface ICharlieplexingMatrixProps {
   size: number;
   speed?: number;
   animate?: boolean;
+  value?: boolean;
+  brightness?: number;
 }
 
 export function CharlieplexingMatrix({
   size,
   speed = 500,
   animate = true,
+  value = false,
+  brightness = 1,
 }: ICharlieplexingMatrixProps) {
   const [activeLed, setActiveLed] = useState(0);
   const nextLED = () => {
-    setActiveLed((value) => (value + 1) % (size * (size - 1)));
+    setActiveLed((oldValue) => (oldValue + 1) % (size * (size - 1)));
   };
 
   useEffect(() => {
@@ -35,9 +39,9 @@ export function CharlieplexingMatrix({
             color="white"
             lightColor="red"
             label={`${row}\u2003${col}`}
-            value={animate}
+            value={value || animate}
             key={key++}
-            brightness={activeLed === index++ ? 1 : 0}
+            brightness={value || activeLed === index++ ? brightness : 0}
             transition={speed > 300}
           />,
         );
