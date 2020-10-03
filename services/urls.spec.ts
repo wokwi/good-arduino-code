@@ -34,7 +34,7 @@ describe('projectFileURL', () => {
 });
 
 describe('projectImageUrl', () => {
-  it('should return convertkit URL on production environment', () => {
+  it('should return imagekit URL on production environment', () => {
     isProduction = true;
     expect(projectImageUrl('simon', 'test.png')).toEqual(
       'https://ik.imagekit.io/tlnjt5rshw/simon/test.png',
