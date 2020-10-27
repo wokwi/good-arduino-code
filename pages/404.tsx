@@ -76,7 +76,7 @@ function SvgMagnifyingGlassComponent(
           fill="gray"
         />
         <ellipse stroke="#979797" fill="#D3D3D3" cx={140} cy={140} rx={134.5} ry={139.5} />
-        <image x={29} y={64} width={210} height={153} href="images/uno.png" />
+        <image x={29} y={64} width={210} height={153} href="/images/uno.png" />
       </g>
       <style jsx>
         {`
