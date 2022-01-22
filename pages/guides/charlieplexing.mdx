@@ -692,7 +692,7 @@ void loop() {
     }
     delay(SCAN_DELAY);
     for (int j = 0; j < LED_COUNT; j++) {
-      digitalWrite(LEDS[i], LOW);
+      digitalWrite(LEDS[j], LOW);
       pinMode(LEDS[j], INPUT);
     }
   }
