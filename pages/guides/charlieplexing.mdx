@@ -289,9 +289,9 @@ for us to extend later:
 #define SCAN_DELAY 500
 
 /* gac: The port pins are defined as an array. In this case it will be two port pins: 2, 3 */
-byte LEDS[] = { 2, 3 };
-/* gac: to derive the number of port pins. LED_COUNT will get a value of 2 */
-const byte LED_COUNT = sizeof(LEDS);
+byte LED_PINS[] = { 2, 3 };
+/* gac: to derive the number of port pins. LED_PIN_COUNT will get a value of 2 */
+const byte LED_PIN_COUNT = sizeof(LED_PINS);
 
 void setup() {
 }
@@ -300,32 +300,32 @@ void loop() {
   /* gac:
     Variables `i` and `j` represent port pins of the Arduino.
     In first iteration, <br />
-    `i` will have value of 0 --> LEDS[i] will be 2 (first element in the array) <br />
-    `j` will have value of 0 --> LEDS[j] will be 2.
+    `i` will have value of 0 --> LED_PINS[i] will be 2 (first element in the array) <br />
+    `j` will have value of 0 --> LED_PINS[j] will be 2.
 
     `if` condition will fail.
 
-    In the second iteration of inner for-loop, LEDS[j] will be 3.
+    In the second iteration of inner for-loop, LED_PINS[j] will be 3.
     The `if` condition will pass.
 
     Since there are only two port pins, go through the iterations manually to see the logic by yourself.
     you can leave a comment if there is need for more clarity
   */
-  for (int i = 0; i < LED_COUNT; i++) {
-    for (int j = 0; j < LED_COUNT; j++) {
+  for (byte i = 0; i < LED_PIN_COUNT; i++) {
+    for (byte j = 0; j < LED_PIN_COUNT; j++) {
       if (i != j) { //The LED port pins are always connected to two different pins
-        pinMode(LEDS[i], OUTPUT); //port 2
-        pinMode(LEDS[j], OUTPUT); //port 3
+        pinMode(LED_PINS[i], OUTPUT); //port 2
+        pinMode(LED_PINS[j], OUTPUT); //port 3
         /* gac: writing port pins with the below sequence, will turn on LED(i,j)
           In first iteration, the LED(2,3) will be turned on.
           In the second iteration, LED(3,2) will be turned on.
         */
-        digitalWrite(LEDS[i], LOW);
-        digitalWrite(LEDS[j], HIGH);
+        digitalWrite(LED_PINS[i], LOW);
+        digitalWrite(LED_PINS[j], HIGH);
         delay(SCAN_DELAY);
         /* gac: We will always take the pins to high impedance state before driving the next pins */
-        pinMode(LEDS[i], INPUT);
-        pinMode(LEDS[j], INPUT);
+        pinMode(LED_PINS[i], INPUT);
+        pinMode(LED_PINS[j], INPUT);
       }
     }
   }
@@ -361,24 +361,24 @@ And the 6 LEDs arranged as follows:
 
 #define SCAN_DELAY 500
 
-/* gac: Life is simple now - we can support as many pins as we want by adding values to the `LEDS` array */
-byte LEDS[] = { 2, 3, 4 };
-const byte LED_COUNT = sizeof(LEDS);
+/* gac: Life is simple now - we can support as many pins as we want by adding values to the `LED_PINS` array */
+byte LED_PINS[] = { 2, 3, 4 };
+const byte LED_PIN_COUNT = sizeof(LED_PINS);
 
 void setup() {
 }
 
 void loop() {
-  for (int i = 0; i < LED_COUNT; i++) {
-    for (int j = 0; j < LED_COUNT; j++) {
+  for (byte i = 0; i < LED_PIN_COUNT; i++) {
+    for (byte j = 0; j < LED_PIN_COUNT; j++) {
       if (i != j) {
-        pinMode(LEDS[i], OUTPUT);
-        pinMode(LEDS[j], OUTPUT);
-        digitalWrite(LEDS[i], LOW);
-        digitalWrite(LEDS[j], HIGH);
+        pinMode(LED_PINS[i], OUTPUT);
+        pinMode(LED_PINS[j], OUTPUT);
+        digitalWrite(LED_PINS[i], LOW);
+        digitalWrite(LED_PINS[j], HIGH);
         delay(SCAN_DELAY);
-        pinMode(LEDS[i], INPUT);
-        pinMode(LEDS[j], INPUT);
+        pinMode(LED_PINS[i], INPUT);
+        pinMode(LED_PINS[j], INPUT);
       }
     }
   }
@@ -398,7 +398,7 @@ void loop() {
 #### Code Summary
 
 Since we made our code modular, we only had to change a single place: add the
-new pin number (4) to the `LEDS[]` array.
+new pin number (4) to the `LED_PINS[]` array.
 
 ### Case 3: Driving twelve LEDs with four Arduino Pins-Charlieplexing
 
@@ -431,23 +431,23 @@ You have 12 LEDs in this case
 
 #define SCAN_DELAY 500
 
-byte LEDS[] = { 2, 3, 4, 5 };
-const byte LED_COUNT = sizeof(LEDS);
+byte LED_PINS[] = { 2, 3, 4, 5 };
+const byte LED_PIN_COUNT = sizeof(LED_PINS);
 
 void setup() {
 }
 
 void loop() {
-  for (int i = 0; i < LED_COUNT; i++) {
-    for (int j = 0; j < LED_COUNT; j++) {
+  for (byte i = 0; i < LED_PIN_COUNT; i++) {
+    for (byte j = 0; j < LED_PIN_COUNT; j++) {
       if (i != j) {
-        pinMode(LEDS[i], OUTPUT);
-        pinMode(LEDS[j], OUTPUT);
-        digitalWrite(LEDS[i], LOW);
-        digitalWrite(LEDS[j], HIGH);
+        pinMode(LED_PINS[i], OUTPUT);
+        pinMode(LED_PINS[j], OUTPUT);
+        digitalWrite(LED_PINS[i], LOW);
+        digitalWrite(LED_PINS[j], HIGH);
         delay(SCAN_DELAY);
-        pinMode(LEDS[i], INPUT);
-        pinMode(LEDS[j], INPUT);
+        pinMode(LED_PINS[i], INPUT);
+        pinMode(LED_PINS[j], INPUT);
       }
     }
   }
@@ -494,23 +494,23 @@ You have 20 LEDs in this case:
 
 #define SCAN_DELAY 500
 
-byte LEDS[] = { 2, 3, 4, 5, 6 };
-const byte LED_COUNT = sizeof(LEDS);
+byte LED_PINS[] = { 2, 3, 4, 5, 6 };
+const byte LED_PIN_COUNT = sizeof(LED_PINS);
 
 void setup() {
 }
 
 void loop() {
-  for (int i = 0; i < LED_COUNT; i++) {
-    for (int j = 0; j < LED_COUNT; j++) {
+  for (byte i = 0; i < LED_PIN_COUNT; i++) {
+    for (byte j = 0; j < LED_PIN_COUNT; j++) {
       if (i != j) {
-        pinMode(LEDS[i], OUTPUT);
-        pinMode(LEDS[j], OUTPUT);
-        digitalWrite(LEDS[i], LOW);
-        digitalWrite(LEDS[j], HIGH);
+        pinMode(LED_PINS[i], OUTPUT);
+        pinMode(LED_PINS[j], OUTPUT);
+        digitalWrite(LED_PINS[i], LOW);
+        digitalWrite(LED_PINS[j], HIGH);
         delay(SCAN_DELAY);
-        pinMode(LEDS[i], INPUT);
-        pinMode(LEDS[j], INPUT);
+        pinMode(LED_PINS[i], INPUT);
+        pinMode(LED_PINS[j], INPUT);
       }
     }
   }
@@ -549,7 +549,7 @@ And the LEDs:
 </figure>
 
 The code was omitted for brevity. We basically add the number `7` at the end of the
-`LEDS` array.
+`LED_PINS` array.
 
 ### Case 6: Driving 42 LEDs with 7 Arduino Pins-Charlieplexing
 
@@ -629,23 +629,23 @@ So what's the trick?
    LEDs are all lit at once. Even though we still light them just one at a time! */
 #define SCAN_DELAY 1
 
-byte LEDS[] = { 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-const byte LED_COUNT = sizeof(LEDS);
+byte LED_PINS[] = { 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+const byte LED_PIN_COUNT = sizeof(LED_PINS);
 
 void setup() {
 }
 
 void loop() {
-  for (int i = 0; i < LED_COUNT; i++) {
-    for (int j = 0; j < LED_COUNT; j++) {
+  for (byte i = 0; i < LED_PIN_COUNT; i++) {
+    for (byte j = 0; j < LED_PIN_COUNT; j++) {
       if (i != j) {
-        pinMode(LEDS[i], OUTPUT);
-        pinMode(LEDS[j], OUTPUT);
-        digitalWrite(LEDS[i], LOW);
-        digitalWrite(LEDS[j], HIGH);
+        pinMode(LED_PINS[i], OUTPUT);
+        pinMode(LED_PINS[j], OUTPUT);
+        digitalWrite(LED_PINS[i], LOW);
+        digitalWrite(LED_PINS[j], HIGH);
         delay(SCAN_DELAY);
-        pinMode(LEDS[i], INPUT);
-        pinMode(LEDS[j], INPUT);
+        pinMode(LED_PINS[i], INPUT);
+        pinMode(LED_PINS[j], INPUT);
       }
     }
   }
@@ -665,17 +665,17 @@ of one LED at the time. This way, each LED will get power for ~1/9 of the time:
 
 #define SCAN_DELAY 1
 
-byte LEDS[] = { 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-const byte LED_COUNT = sizeof(LEDS);
+byte LED_PINS[] = { 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+const byte LED_PIN_COUNT = sizeof(LED_PINS);
 
 void setup() {
 }
 
 void loop() {
-  for (int i = 0; i < LED_COUNT; i++) {
-    pinMode(LEDS[i], OUTPUT);
-    digitalWrite(LEDS[i], LOW);
-    for (int j = 0; j < LED_COUNT; j++) {
+  for (byte i = 0; i < LED_PIN_COUNT; i++) {
+    pinMode(LED_PINS[i], OUTPUT);
+    digitalWrite(LED_PINS[i], LOW);
+    for (byte j = 0; j < LED_PIN_COUNT; j++) {
       if (i != j) {
 /* gac:start
    if you wanted just some specific LEDs to be on, we'd need to add another condition
@@ -685,15 +685,15 @@ void loop() {
    the pin is set both to `OUTPUT` and `LOW`. Otherwise, some current may flow from
    other `HIGH` pins to this pin, briefly lighting up LEDs we didn't want to.
 */
-        digitalWrite(LEDS[j], HIGH);
-        pinMode(LEDS[j], OUTPUT);
+        digitalWrite(LED_PINS[j], HIGH);
+        pinMode(LED_PINS[j], OUTPUT);
 /* gac:end */
       }
     }
     delay(SCAN_DELAY);
-    for (int j = 0; j < LED_COUNT; j++) {
-      digitalWrite(LEDS[i], LOW);
-      pinMode(LEDS[j], INPUT);
+    for (byte j = 0; j < LED_PIN_COUNT; j++) {
+      digitalWrite(LED_PINS[j], LOW);
+      pinMode(LED_PINS[j], INPUT);
     }
   }
 }
